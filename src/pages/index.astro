@@ -1,11 +1,25 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import CTA from '@/components/CTA';
+import TopHeaders from '@/components/TopHeaders';
+import Headers from '@/components/Headers';
+import Plans from '@/components/Plans';
 ---
 
 <Layout>
-	<Welcome />
+	<Hero 
+	title="Build Flawless Interfaces",
+	subtitle="With Ready-TO-Use CODE",
+	description="FROM COMPLEX PRICING TABLES ESSENTIAL LAYOUTS-GRAB THE CODE YOU RES NEED AND FOCS ON WHAT MATERS: DELIVERING VALUE TO YOUR CLIENTS"
+	client:only 
+	/>
+
+	<CTA client:only />
+
+	<TopHeaders client:only />
+
+	<Headers client:only />
+
+	<Plans client:only />
 </Layout>

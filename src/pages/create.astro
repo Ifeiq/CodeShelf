@@ -1,0 +1,22 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import TopHeader from '@/create/TopHeader';
+import Header from '@/create/Header';
+import Plans from '@/create/Plans';
+---
+
+<Layout>
+    <Hero
+        title="Craft Your Dream Website"
+        subtitle="Fully Personalized, Uniquely Yours"
+        description="Unleash your creativity and bring your ideas to life. Our intuitive platform empowers you to design a custom website that perfectly fits your brand, style, and goals—no coding required. Start building your personalized online presence today!"
+        client:only
+    />
+
+    <TopHeader client:only/>
+
+    <Header client:only/>
+
+    <Plans client:only/>
+</Layout>
