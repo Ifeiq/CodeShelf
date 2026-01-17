@@ -16,32 +16,6 @@ export default function Plan1() {
                 "tdesign:icon"
             ]
         },
-        {
-            name: "Plan 2",
-            price: 99.99,
-            items: [
-                { name: "Item 1", icon: "tdesign:icon" },
-                { name: "Item 2", icon: "tdesign:icon" },
-                { name: "Item 3", icon: "tdesign:icon" },
-            ],
-            more: [
-                "tdesign:icon",
-                "tdesign:icon"
-            ]
-        },
-        {
-            name: "Plan 2",
-            price: 99.99,
-            items: [
-                { name: "Item 1", icon: "tdesign:icon" },
-                { name: "Item 2", icon: "tdesign:icon" },
-                { name: "Item 3", icon: "tdesign:icon" },
-            ],
-            more: [
-                "tdesign:icon",
-                "tdesign:icon"
-            ]
-        }
     ]
 
     return (

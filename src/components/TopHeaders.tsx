@@ -44,14 +44,14 @@ export default function TopHeaders() {
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
-                    <h1 className="text-8xl font-bold text-primary">Top Headers</h1>
-                    <h2 className="text-3xl font-bold text-secondary px-4 w-160">Make a Strong First Impression with Top Headers</h2>
+                    <h1 className="text-6xl max-lg:text-center max-lg:text-3xl font-bold text-primary">Top Headers</h1>
+                    <h2 className="text-xl max-lg:text-center max-lg:text-sm font-bold text-secondary px-4 md:w-160">Make a Strong First Impression with Top Headers</h2>
                 </div>
-                <img src="/images/Top_Headers.png" alt="Top Headers" className="w-1/2" />
+                <img src="/images/Top_Headers.png" alt="Top Headers" className="w-1/2 max-lg:hidden" />
             </div>
 
-            <div className="flex flex-row items-start justify-between w-full">
-                <div className="h-120 w-100 bg-[#1d1e22] flex flex-col gap-8 rounded-xl p-8 overflow-y-auto">
+            <div className="flex flex-row max-lg:flex-col max-lg:gap-32 items-start justify-between w-full">
+                <div className="h-120 w-100 max-lg:w-full bg-[#1d1e22] flex flex-col gap-8 rounded-xl p-8 overflow-y-auto">
                     <div className="flex flex-row items-center justify-between">
                         <h1 className="text-primary font-bold">React</h1>
                         <Icon 
@@ -68,7 +68,7 @@ export default function TopHeaders() {
                     </div>
                 </div>
 
-                <div className="w-1/2 flex flex-col gap-8 pr-8 overflow-y-auto h-120 relative">
+                <div className="w-1/2 max-lg:w-full flex flex-col gap-8 pr-8 overflow-y-auto h-120 relative">
                     {allSnippets.map((snippet, index) => {
                         const Component = snippet.component as React.ComponentType<any>;
                         const isSelected = selectedIndex === index;

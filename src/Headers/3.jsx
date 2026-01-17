@@ -10,7 +10,6 @@ export default function TopHeader() {
         { text: "item 1", link: "" },
         { text: "item 2", link: "" },
         { text: "item 3", link: "" },
-        { text: "item 4", link: "" },
     ];
 
     return (

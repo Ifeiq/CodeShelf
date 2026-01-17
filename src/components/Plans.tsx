@@ -44,8 +44,8 @@ export default function Plans() {
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
-                    <h1 className="text-8xl font-bold text-primary">Plans</h1>
-                    <h2 className="text-3xl font-bold text-secondary w-160">Pricing Plans for Every Need</h2>
+                    <h1 className="text-6xl font-bold text-primary">Plans</h1>
+                    <h2 className="text-xl font-bold text-secondary w-160">Pricing Plans for Every Need</h2>
                 </div>
 
                 <div className="flex flex-row gap-8 items-center justify-center relative">
