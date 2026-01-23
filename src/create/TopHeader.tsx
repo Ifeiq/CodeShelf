@@ -1,19 +1,94 @@
 import { Icon } from "@iconify/react";
+import { useState, useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// Importar todos os topHeaders
+const topHeadersModules = import.meta.glob('/src/topHeaders/*.jsx', {
+    import: 'default',
+    eager: true
+});
 
 export default function TopHeader() {
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const swiperRef = useRef<SwiperType | null>(null);
+
+    // Converter os módulos em array
+    const topHeaders = Object.entries(topHeadersModules).map(([path, component], index) => {
+        const fileName = path.split('/').pop()?.replace('.jsx', '') || `topHeader-${index}`;
+        return {
+            id: fileName,
+            component: component as React.ComponentType<any>,
+        };
+    });
+
+    const handlePrev = () => {
+        swiperRef.current?.slidePrev();
+    };
+
+    const handleNext = () => {
+        swiperRef.current?.slideNext();
+    };
+
     return (
-        <div className="w-full h-full bg-white flex flex-row items-center justify-between px-[5%] py-2 select-none">
-            <div className="flex flex-row items-center justify-center gap-2">
-                <Icon icon="mdi:whatsapp" className="text-black text-2xl font-bold" />
-                <p className="text-black text-sm font-bold">99 99999-9999</p>
-            </div>
-            <div className="flex flex-row items-center justify-center gap-2">
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                    <Icon icon="mdi:instagram" className="text-black text-2xl font-bold hover:text-primary transition-colors duration-200" />
-                </a>
-                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                    <Icon icon="mdi:facebook" className="text-black text-2xl font-bold hover:text-primary transition-colors duration-200" />
-                </a>
+        <div className="w-full px-8 pt-16">
+            <div className="max-w-7xl mx-auto">
+
+
+                {/* Swiper Container */}
+                <div className="relative">
+                    {/* Botão Anterior */}
+                    <button
+                        onClick={handlePrev}
+                        className="absolute -left-10 top-1/2 -translate-y-1/2 z-10  hover:scale-110 cursor-pointer text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
+                        aria-label="Previous slide"
+                    >
+                        <Icon icon="mdi:chevron-left" className="text-2xl" />
+                    </button>
+
+                    {/* Swiper */}
+                    <Swiper
+                        modules={[Navigation, Pagination]}
+                        spaceBetween={30}
+                        slidesPerView={1}
+                        onSwiper={(swiper) => {
+                            swiperRef.current = swiper;
+                        }}
+                        onSlideChange={(swiper) => {
+                            setSelectedIndex(swiper.activeIndex);
+                        }}
+
+                        className="px-12"
+                    >
+                        {topHeaders.map((header, index) => {
+                            const Component = header.component;
+                            return (
+                                <SwiperSlide key={header.id}>
+                                    <div className=" rounded-xl">
+                                        <div className="overflow-hidden">
+                                            <Component />
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            );
+                        })}
+                    </Swiper>
+
+                    {/* Botão Próximo */}
+                    <button
+                        onClick={handleNext}
+                        className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 hover:scale-110 cursor-pointer text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
+                        aria-label="Next slide"
+                    >
+                        <Icon icon="mdi:chevron-right" className="text-2xl" />
+                    </button>
+                </div>
+
+
             </div>
         </div>
     );

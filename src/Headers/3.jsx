@@ -13,7 +13,7 @@ export default function TopHeader() {
     ];
 
     return (
-        <div className="w-full py-8 bg-white flex flex-row items-center justify-between px-[5%] py-2 select-none">
+        <div className="w-full h-24 bg-white flex flex-row items-center justify-between px-[5%] py-2 select-none">
             <div className="flex flex-row gap-8 font-bold">
                 {items.map((item, index) => (
                     <a 

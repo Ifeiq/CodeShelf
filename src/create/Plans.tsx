@@ -1,56 +1,94 @@
 import { Icon } from "@iconify/react";
+import { useState, useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-export default function Plan1() {
+// Importar todos os Plans
+const plansModules = import.meta.glob('/src/Plans/*.jsx', { 
+    import: 'default', 
+    eager: true 
+});
 
-    const plans = [
-        {
-            name: "Plan 1",
-            price: 99.99,
-            items: [
-                { name: "Item 1", icon: "tdesign:icon" },
-                { name: "Item 2", icon: "tdesign:icon" },
-                { name: "Item 3", icon: "tdesign:icon" },
-            ]
-        },
-        {
-            name: "Plan 2",
-            price: 99.99,
-            items: [
-                { name: "Item 1", icon: "tdesign:icon" },
-                { name: "Item 2", icon: "tdesign:icon" },
-                { name: "Item 3", icon: "tdesign:icon" },
-            ]
-        },
-        {
-            name: "Plan 2",
-            price: 99.99,
-            items: [
-                { name: "Item 1", icon: "tdesign:icon" },
-                { name: "Item 2", icon: "tdesign:icon" },
-                { name: "Item 3", icon: "tdesign:icon" },
-            ]
-        }
-    ]
+export default function Plans() {
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const swiperRef = useRef<SwiperType | null>(null);
+
+    // Converter os módulos em array
+    const plans = Object.entries(plansModules).map(([path, component], index) => {
+        const fileName = path.split('/').pop()?.replace('.jsx', '') || `plan-${index}`;
+        return {
+            id: fileName,
+            component: component as React.ComponentType<any>,
+        };
+    });
+
+    const handlePrev = () => {
+        swiperRef.current?.slidePrev();
+    };
+
+    const handleNext = () => {
+        swiperRef.current?.slideNext();
+    };
 
     return (
-        <div className="flex flex-row max-lg:flex-col items-center justify-center relative gap-8">
-            {plans.map((plan, index) => (
-                <div key={index} className=" border-2 border-black rounded-xl px-12 py-8 bg-white rounded-xl">
-                    <h1 className="text-2xl font-bold text-black text-center">{plan.name}</h1>
-                    <div className="flex flex-col gap-4 items-center justify-center mt-4">
-                        {plan.items.map((item, index) => (
-                            <div key={index} className="flex flex-row gap-2 items-center justify-center">
-                                <Icon icon={item.icon} className="text-2xl text-black" />
-                                <span className="text-sm text-black font-bold">{item.name}</span>
-                            </div>
-                        ))}
-                    </div>
+        <div className="w-full px-8">
+            <div className="max-w-7xl bg-white mx-auto">
+                {/* Swiper Container */}
+                <div className="relative">
+                    {/* Botão Anterior */}
+                    <button
+                        onClick={handlePrev}
+                        className="absolute -left-10 top-1/2 -translate-y-1/2 z-10 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
+                        aria-label="Previous slide"
+                    >
+                        <Icon icon="mdi:chevron-left" className="text-2xl" />
+                    </button>
 
-                    <h1 className="text-xl font-bold text-black text-center mt-8">${plan.price}</h1>
+                    {/* Swiper */}
+                    <Swiper
+                        modules={[Navigation, Pagination]}
+                        spaceBetween={30}
+                        slidesPerView={1}
+                        onSwiper={(swiper) => {
+                            swiperRef.current = swiper;
+                        }}
+                        onSlideChange={(swiper) => {
+                            setSelectedIndex(swiper.activeIndex);
+                        }}
+                       
+                        className="px-12"
+                    >
+                        {plans.map((plan, index) => {
+                            const Component = plan.component;
+                            return (
+                                <SwiperSlide key={plan.id}>
+                                    <div className=" rounded-xl">
+                                        
+                                        <div className=" overflow-hidden">
+                                            <Component />
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            );
+                        })}
+                    </Swiper>
 
-                    <h1 className="text-lg  mx-auto border-2 border-black rounded-full px-8 py-1 font-bold text-black text-center mt-4">Buy</h1>
+                    {/* Botão Próximo */}
+                    <button
+                        onClick={handleNext}
+                        className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
+                        aria-label="Next slide"
+                    >
+                        <Icon icon="mdi:chevron-right" className="text-2xl" />
+                    </button>
                 </div>
-            ))}
+
+               
+            </div>
         </div>
     );
 }

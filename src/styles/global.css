@@ -25,3 +25,18 @@ body {
 	border-radius: 15px;
 	animation-duration: 3s
 }
+
+/* Swiper Pagination Styles */
+.swiper-pagination-bullet {
+	background: #fff;
+	opacity: 0.5;
+	width: 12px;
+	height: 12px;
+}
+
+.swiper-pagination-bullet-active {
+	background: var(--color-primary);
+	opacity: 1;
+	width: 14px;
+	height: 14px;
+}

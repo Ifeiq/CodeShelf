@@ -13,7 +13,7 @@ export default function TopHeader() {
     ];
 
     return (
-        <div className="w-full py-8 bg-white flex flex-row items-center justify-between px-[5%] py-2 select-none">
+        <div className="w-full h-24 bg-white flex flex-row items-center justify-between px-[5%] py-2 select-none">
             <div className="grid grid-cols-2 gap-1 hover:-translate-y-2 transition-all duration-300">
                 <div className="h-5 w-5 border-4 border-black rounded-full"></div>
                 <div className="h-5 w-5 border-4 border-black"></div>

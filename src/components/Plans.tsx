@@ -136,7 +136,10 @@ export default function Plans() {
             <div className="flex flex-row items-start justify-between w-full">
                 <div className="h-120 w-100 bg-[#1d1e22] flex flex-col gap-8 rounded-xl p-8 overflow-y-auto">
                     <div className="flex flex-row items-center justify-between">
-                        <h1 className="text-primary font-bold">React</h1>
+                        <div className="flex flex-row gap-6">
+                            <h1 className="text-primary font-bold">React</h1>
+                            <h1 className="text-primary font-bold">Tailwind</h1>
+                        </div>
                         <Icon
                             icon="solar:copy-outline"
                             className="text-white font-bold text-2xl cursor-pointer hover:text-primary transition-all duration-300"

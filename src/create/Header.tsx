@@ -1,41 +1,96 @@
 import { Icon } from "@iconify/react";
+import { useState, useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-export default function TopHeader() {
-    //Remove this function to allow the user to click on the links
-    const handleClick = (e) => {
-        e.preventDefault();
+// Importar todos os Headers
+const headersModules = import.meta.glob('/src/Headers/*.jsx', { 
+    import: 'default', 
+    eager: true 
+});
+
+export default function Header() {
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const swiperRef = useRef<SwiperType | null>(null);
+
+    // Converter os módulos em array
+    const headers = Object.entries(headersModules).map(([path, component], index) => {
+        const fileName = path.split('/').pop()?.replace('.jsx', '') || `header-${index}`;
+        return {
+            id: fileName,
+            component: component as React.ComponentType<any>,
+        };
+    });
+
+    const handlePrev = () => {
+        swiperRef.current?.slidePrev();
     };
 
-    const items = [
-        { text: "item 1", link: "" },
-        { text: "item 2", link: "" },
-        { text: "item 3", link: "" },
-        { text: "item 4", link: "" },
-    ];
+    const handleNext = () => {
+        swiperRef.current?.slideNext();
+    };
 
     return (
-        <div className="w-full py-8 bg-white flex flex-row items-center justify-between px-[5%] py-2 select-none">
-            <div className="grid grid-cols-2 gap-1 hover:-translate-y-2 transition-all duration-300">
-                <div className="h-5 w-5 border-4 border-black rounded-full"></div>
-                <div className="h-5 w-5 border-4 border-black"></div>
-                <div className="h-5 w-5 border-4 border-black"></div>
-                <div className="h-5 w-5 border-4 border-black rounded-full"></div>
-            </div>
+        <div className="w-full px-8">
+            <div className="max-w-7xl mx-auto">
 
-            <div className="flex flex-row gap-8 font-bold">
-                {items.map((item, index) => (
-                    <a 
-                        key={index} 
-                        href={item.link} 
-                        onClick={handleClick} 
-                        className="hover:text-primary transition-all duration-300 cursor-pointer"
+
+                {/* Swiper Container */}
+                <div className="relative">
+                    {/* Botão Anterior */}
+                    <button
+                        onClick={handlePrev}
+                        className="absolute -left-10 top-1/2 -translate-y-1/2 z-10 hover:scale-110 cursor-pointer text-white p-3 rounded-full transition-all duration-300 shadow-lg"
+                        aria-label="Previous slide"
                     >
-                        {item.text}
-                    </a>
-                ))}
-            </div>
+                        <Icon icon="mdi:chevron-left" className="text-2xl" />
+                    </button>
 
-            <h1 className="text-black font-bold text-sm border-2 border-black rounded-full px-8 py-2 hover:scale-110 transition-all duration-300">button</h1>
+                    {/* Swiper */}
+                    <Swiper
+                        modules={[Navigation, Pagination]}
+                        spaceBetween={30}
+                        slidesPerView={1}
+                        onSwiper={(swiper) => {
+                            swiperRef.current = swiper;
+                        }}
+                        onSlideChange={(swiper) => {
+                            setSelectedIndex(swiper.activeIndex);
+                        }}
+                        
+                        className="px-12"
+                    >
+                        {headers.map((header, index) => {
+                            const Component = header.component;
+                            return (
+                                <SwiperSlide key={header.id}>
+                                    <div className="rounded-xl">
+                                       
+                                        <div className="overflow-hidden">
+                                            <Component />
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            );
+                        })}
+                    </Swiper>
+
+                    {/* Botão Próximo */}
+                    <button
+                        onClick={handleNext}
+                        className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 hover:scale-110 cursor-pointer text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
+                        aria-label="Next slide"
+                    >
+                        <Icon icon="mdi:chevron-right" className="text-2xl" />
+                    </button>
+                </div>
+
+              
+            </div>
         </div>
     );
 }

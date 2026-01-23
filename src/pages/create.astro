@@ -1,9 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Hero from '@/components/Hero';
-import TopHeader from '@/create/TopHeader';
-import Header from '@/create/Header';
-import Plans from '@/create/Plans';
+import CreateComponent from '@/components/Create';
 ---
 
 <Layout>
@@ -14,9 +12,6 @@ import Plans from '@/create/Plans';
         client:only
     />
 
-    <TopHeader client:only/>
-
-    <Header client:only/>
-
-    <Plans client:only/>
+    <CreateComponent client:only/>
+    
 </Layout>
