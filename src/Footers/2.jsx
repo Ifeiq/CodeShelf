@@ -37,11 +37,11 @@ export default function Footer1() {
                         <p className="text-sm text-black font-bold">PDF Link 1</p>
                     </a>
                     <a href="#" aria-label="Facebook" target="_blank" onClick={handleClick} className="flex flex-row gap-2 items-center hover:translate-x-2 transition-all duration-300">
-                        <Icon icon="mdi:facebook" className="text-2xl text-black" />
+                        <Icon icon="mdi:file-pdf" className="text-2xl text-black" />
                         <p className="text-sm text-black font-bold">PDF Link 2</p>
                     </a>
                     <a href="#" aria-label="WhatsApp" target="_blank" onClick={handleClick} className="flex flex-row gap-2 items-center hover:translate-x-2 transition-all duration-300">
-                        <Icon icon="mdi:whatsapp" className="text-2xl text-black" />
+                        <Icon icon="mdi:file-pdf" className="text-2xl text-black" />
                         <p className="text-sm text-black font-bold">PDF Link 3</p>
                     </a>
                 </div>
