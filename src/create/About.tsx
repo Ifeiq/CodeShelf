@@ -8,18 +8,18 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Importar todos os Plans
-const plansModules = import.meta.glob('/src/Plans/*.jsx', { 
+const aboutModules = import.meta.glob('/src/About/*.jsx', { 
     import: 'default', 
     eager: true 
 });
 
-export default function Plans() {
+export default function About() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const swiperRef = useRef<SwiperType | null>(null);
     const [isOpen, setIsOpen] = useState(true);
     // Converter os módulos em array
-    const plans = Object.entries(plansModules).map(([path, component], index) => {
-        const fileName = path.split('/').pop()?.replace('.jsx', '') || `plan-${index}`;
+    const about = Object.entries(aboutModules).map(([path, component], index) => {
+        const fileName = path.split('/').pop()?.replace('.jsx', '') || `about-${index}`;
         return {
             id: fileName,
             component: component as React.ComponentType<any>,
@@ -66,10 +66,10 @@ export default function Plans() {
                        
                         className="px-12"
                     >
-                        {plans.map((plan, index) => {
-                            const Component = plan.component;
+                        {about.map((about, index) => {
+                            const Component = about.component;
                             return (
-                                <SwiperSlide key={plan.id}>
+                                <SwiperSlide key={about.id}>
                                     <div className=" rounded-xl">
                                         
                                         <div className=" overflow-hidden">
@@ -89,10 +89,9 @@ export default function Plans() {
                     >
                         <Icon icon="mdi:chevron-right" className="text-2xl" />
                     </button>
-
                     <button
                         onClick={handleClose}
-                        className="absolute -right-20 top-1/2 -translate-y-1/2  hover:text-red-500 transition-all cursor-pointer duration-300 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
+                        className="absolute -right-20 top-1/2 -translate-y-1/2 z-10  hover:text-red-500 transition-all cursor-pointer duration-300 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
                         aria-label="Next slide"
                     >
                         <Icon icon="famicons:close" className="text-2xl" />

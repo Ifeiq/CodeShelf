@@ -17,6 +17,8 @@ export default function Header() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const swiperRef = useRef<SwiperType | null>(null);
 
+    const [isOpen, setIsOpen] = useState(true);
+
     // Converter os módulos em array
     const headers = Object.entries(headersModules).map(([path, component], index) => {
         const fileName = path.split('/').pop()?.replace('.jsx', '') || `header-${index}`;
@@ -34,9 +36,17 @@ export default function Header() {
         swiperRef.current?.slideNext();
     };
 
+    const handleEdit = () => {
+        console.log('edit');
+    }
+
+    const handleClose = () => {
+        setIsOpen(false);
+    }
+
     return (
         <div className="w-full px-8">
-            <div className="max-w-7xl mx-auto">
+            <div className={`max-w-7xl mx-auto ${isOpen ? 'block' : 'hidden'}`}>
 
 
                 {/* Swiper Container */}
@@ -86,6 +96,13 @@ export default function Header() {
                         aria-label="Next slide"
                     >
                         <Icon icon="mdi:chevron-right" className="text-2xl" />
+                    </button>
+                    <button
+                        onClick={handleClose}
+                        className="absolute -right-20 top-1/2 -translate-y-1/2 z-10 hover:scale-110 cursor-pointer hover:text-red-500 transition-all duration-300 text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
+                        aria-label="Next slide"
+                    >
+                        <Icon icon="famicons:close" className="text-2xl" />
                     </button>
                 </div>
 

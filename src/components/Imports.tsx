@@ -34,6 +34,7 @@ const createSnippets = (folderPath: string) => {
 export const topHeaders = createSnippets('/topHeaders/');
 export const Headers = createSnippets('/Headers/');
 export const Plans = createSnippets('/Plans/');
-
+export const About = createSnippets('/About/');
+export const Footers = createSnippets('/Footers/');
 // Export padrão para compatibilidade (topHeaders)
 export const allSnippets = topHeaders;

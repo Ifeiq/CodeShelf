@@ -7,19 +7,19 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Importar todos os Plans
-const plansModules = import.meta.glob('/src/Plans/*.jsx', { 
-    import: 'default', 
-    eager: true 
+// Importar todos os topHeaders
+const footersModules = import.meta.glob('/src/footers/*.jsx', {
+    import: 'default',
+    eager: true
 });
 
-export default function Plans() {
+export default function Footer() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const swiperRef = useRef<SwiperType | null>(null);
     const [isOpen, setIsOpen] = useState(true);
     // Converter os módulos em array
-    const plans = Object.entries(plansModules).map(([path, component], index) => {
-        const fileName = path.split('/').pop()?.replace('.jsx', '') || `plan-${index}`;
+    const footers = Object.entries(footersModules).map(([path, component], index) => {
+        const fileName = path.split('/').pop()?.replace('.jsx', '') || `Footer-${index}`;
         return {
             id: fileName,
             component: component as React.ComponentType<any>,
@@ -40,13 +40,15 @@ export default function Plans() {
 
     return (
         <div className="w-full px-8">
-            <div className={`max-w-7xl bg-white pt-16 mx-auto ${isOpen ? 'block' : 'hidden'}`}>
+            <div className={`max-w-7xl pt-16  bg-white mx-auto ${isOpen ? 'block' : 'hidden'}`}>
+
+
                 {/* Swiper Container */}
                 <div className="relative">
                     {/* Botão Anterior */}
                     <button
                         onClick={handlePrev}
-                        className="absolute -left-10 top-1/2 -translate-y-1/2 z-10 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
+                        className="absolute -left-10 top-1/2 -translate-y-1/2 z-10  hover:scale-110 cursor-pointer text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
                         aria-label="Previous slide"
                     >
                         <Icon icon="mdi:chevron-left" className="text-2xl" />
@@ -63,16 +65,15 @@ export default function Plans() {
                         onSlideChange={(swiper) => {
                             setSelectedIndex(swiper.activeIndex);
                         }}
-                       
+
                         className="px-12"
                     >
-                        {plans.map((plan, index) => {
-                            const Component = plan.component;
+                        {footers.map((footer, index) => {
+                            const Component = footer.component;
                             return (
-                                <SwiperSlide key={plan.id}>
+                                <SwiperSlide key={footer.id}>
                                     <div className=" rounded-xl">
-                                        
-                                        <div className=" overflow-hidden">
+                                        <div className="overflow-hidden">
                                             <Component />
                                         </div>
                                     </div>
@@ -84,22 +85,21 @@ export default function Plans() {
                     {/* Botão Próximo */}
                     <button
                         onClick={handleNext}
-                        className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
+                        className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 hover:scale-110 cursor-pointer text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
                         aria-label="Next slide"
                     >
                         <Icon icon="mdi:chevron-right" className="text-2xl" />
                     </button>
-
                     <button
                         onClick={handleClose}
-                        className="absolute -right-20 top-1/2 -translate-y-1/2  hover:text-red-500 transition-all cursor-pointer duration-300 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
+                        className="absolute -right-20 top-1/2 -translate-y-1/2 z-10  hover:text-red-500 transition-all cursor-pointer duration-300 text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
                         aria-label="Next slide"
                     >
                         <Icon icon="famicons:close" className="text-2xl" />
                     </button>
                 </div>
 
-               
+
             </div>
         </div>
     );
