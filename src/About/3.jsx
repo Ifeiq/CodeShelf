@@ -6,9 +6,9 @@ export default function About1() {
                     <h1 className="text-2xl font-bold">Lorem Ipsum</h1>
                 </div>
                 <div className="flex flex-row items-start gap-16">
-                    <div className="w-70 h-40 border-2 border-black flex items-center justify-center">Image</div>
+                    <div className="p-16 border-2 border-black flex items-center justify-center">Image</div>
 
-                    <div className="w-70 flex flex-col gap-4">
+                    <div className=" flex flex-col gap-4">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam facilisis, elit at cursus feugiat.</p>
 
                         <div className="flex flex-row items-center gap-8">

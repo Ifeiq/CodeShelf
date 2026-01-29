@@ -48,7 +48,7 @@ export default function Footers() {
                     <h2 className="text-xl font-bold text-secondary w-160">Complete Header Components for Your Website</h2>
                 </div>
 
-                <div className="w-1/2 flex flex-row items-start justify-center gap-32 px-8 py-4 bg-white">
+                <div className="w-1/2 flex flex-row items-start justify-center gap-24 py-4 bg-white">
                     <div className="grid grid-cols-2 gap-1">
                         <div className="h-5 w-5 border-4 border-black rounded-full"></div>
                         <div className="h-5 w-5 border-4 border-black"></div>
