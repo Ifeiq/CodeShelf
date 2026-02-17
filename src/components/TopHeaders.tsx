@@ -1,11 +1,11 @@
 import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { allSnippets } from "./Imports";
+import { topHeaders } from "./Imports";
 
 export default function TopHeaders() {
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const selectedSnippet = allSnippets[selectedIndex];
+    const selectedSnippet = topHeaders[selectedIndex];
     const SelectedComponent = selectedSnippet?.component as React.ComponentType<any> | undefined;
 
     const handleCopyCode = async () => {
@@ -107,7 +107,7 @@ export default function TopHeaders() {
                 </div>
 
                 <div className="w-1/2 max-lg:w-full flex flex-col gap-8 pr-8 overflow-y-auto h-120 relative">
-                    {allSnippets.map((snippet, index) => {
+                    {topHeaders.map((snippet, index) => {
                         const Component = snippet.component as React.ComponentType<any>;
                         const isSelected = selectedIndex === index;
                         

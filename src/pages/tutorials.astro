@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import Project from '@/components/Tutorials/Project';
+---
+
+<Layout>
+    <Hero
+        title="Tutorials"
+        subtitle="Learn how to use our components and features"
+        description="Learn how to use our components and features to build your website."
+    />
+
+    <Project client:only="react" />
+</Layout>

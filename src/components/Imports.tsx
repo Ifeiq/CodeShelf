@@ -1,14 +1,24 @@
 // Função helper para criar snippets de uma pasta específica
 const createSnippets = (folderPath: string) => {
-  // Pega todos os códigos fonte como string (?raw)
-  const rawCodes = import.meta.glob('/src/**/*.jsx', { 
+  // Pega todos os códigos fonte .tsx como string (?raw)
+  const rawCodesTsx = import.meta.glob('../UI/**/*.tsx', { 
     query: '?raw', 
     import: 'default', 
     eager: true 
   });
 
-  // Pega os componentes reais para serem renderizados
-  const components = import.meta.glob('/src/**/*.jsx', { 
+  // Pega todos os códigos fonte .ts como string (?raw)
+  const rawCodesTs = import.meta.glob('../UI/**/*.ts', { 
+    query: '?raw', 
+    import: 'default', 
+    eager: true 
+  });
+
+  // Mescla os dois objetos
+  const rawCodes = { ...rawCodesTsx, ...rawCodesTs };
+
+  // Pega os componentes reais para serem renderizados (apenas .tsx tem componentes)
+  const components = import.meta.glob('../UI/**/*.tsx', { 
     import: 'default', 
     eager: true 
   });
@@ -20,12 +30,15 @@ const createSnippets = (folderPath: string) => {
 
   // Transforma em array de objetos limpo
   return filteredPaths.map((path) => {
-    const fileName = path.split('/').pop()?.replace('.jsx', '');
+    const fileName = path.split('/').pop()?.replace(/\.(tsx|ts)$/, '');
+    const isTsxFile = path.endsWith('.tsx');
+    
     return {
       id: fileName,
       code: rawCodes[path],
-      component: components[path],
-      title: fileName?.replace(/-/g, ' ')
+      component: isTsxFile ? components[path] : null, // Apenas .tsx tem componente
+      title: fileName?.replace(/-/g, ' '),
+      fileType: path.endsWith('.tsx') ? 'tsx' : 'ts' // Indica o tipo do arquivo
     };
   });
 };
@@ -35,7 +48,7 @@ export const topHeaders = createSnippets('/topHeaders/');
 export const Headers = createSnippets('/Headers/');
 export const Plans = createSnippets('/Plans/');
 export const About = createSnippets('/About/');
-export const Footers = createSnippets('/Footers/');
+export const Footers = createSnippets('/Footers/'); 
 export const Features = createSnippets('/Features/');
 // Export padrão para compatibilidade (topHeaders)
 export const allSnippets = topHeaders;

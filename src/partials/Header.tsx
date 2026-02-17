@@ -5,9 +5,9 @@ export default function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const menu = [
-        { label: "Top Headers", href: "#" },
-        { label: "Headers", href: "#" },
-        { label: "Plan Cards", href: "#" },
+        { label: "Components", href: "/components" },
+        { label: "Features", href: "/features" },
+        { label: "Tutorials", href: "/tutorials" },
         { label: "About Us", href: "#" },
         { label: "Footers", href: "#" },
     ];
@@ -37,7 +37,7 @@ export default function Header() {
 			{/* Desktop Buttons */}
 			<div className="hidden md:flex flex-row gap-4 lg:gap-6">
 				<a href="/features" className="flex flex-row items-center px-8 py-2 bg-white rounded-full shadow font-bold text-black text-base focus:outline-none transition-colors duration-150 hover:bg-gray-100">
-					<span className="hidden lg:inline">More Features</span>
+					<span className="hidden lg:inline">Search</span>
 				</a>
 				<a href="/create" className="flex flex-row items-center px-4 lg:px-7 py-2 bg-primary rounded-full shadow font-bold text-white text-base focus:outline-none transition-colors duration-150 hover:bg-cyan-400">
 					<span className="hidden lg:inline">Create new project</span>
@@ -77,7 +77,7 @@ export default function Header() {
 							<span className="mr-2">
 								<Icon icon="mdi:magnify" width="22" height="22" />
 							</span>
-							More Features
+							Search
 						</button>
 						<a href="/create" className="flex flex-row items-center justify-center px-7 py-3 bg-primary rounded-full shadow font-bold text-white text-base focus:outline-none transition-colors duration-150 hover:bg-cyan-400">
 							Create new project

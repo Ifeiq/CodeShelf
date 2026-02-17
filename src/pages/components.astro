@@ -1,0 +1,33 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import CTA from '@/components/CTA';
+import TopHeaders from '@/components/TopHeaders';
+import Headers from '@/components/Headers';
+import Plans from '@/components/Plans';
+import Bands from '@/components/Bands';
+import AboutUs from '@/components/AboutUs';
+import Footers from '@/components/Footers';
+---
+
+<Layout>
+	<Hero 
+	title="Build Flawless Interfaces",
+	subtitle="With Ready-TO-Use CODE",
+	description="FROM COMPLEX PRICING TABLES ESSENTIAL LAYOUTS-GRAB THE CODE YOU RES NEED AND FOCS ON WHAT MATERS: DELIVERING VALUE TO YOUR CLIENTS"
+	client:only="react" 
+	/>
+
+	<CTA client:only="react" />
+
+	<TopHeaders client:only="react" />
+
+	<Headers client:only="react" />
+
+	<Plans client:only="react" />
+
+	<AboutUs client:only="react" />
+
+	<Footers client:only="react" />
+
+</Layout>
