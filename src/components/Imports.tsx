@@ -36,5 +36,6 @@ export const Headers = createSnippets('/Headers/');
 export const Plans = createSnippets('/Plans/');
 export const About = createSnippets('/About/');
 export const Footers = createSnippets('/Footers/');
+export const Features = createSnippets('/Features/');
 // Export padrão para compatibilidade (topHeaders)
 export const allSnippets = topHeaders;

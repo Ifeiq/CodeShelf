@@ -40,6 +40,34 @@ export default function TopHeaders() {
         }
     };
 
+    const handleDownload = () => {
+        if (!selectedSnippet?.code || !selectedSnippet?.id) return;
+        
+        const codeToDownload = typeof selectedSnippet.code === 'string' ? selectedSnippet.code : String(selectedSnippet.code);
+        const fileName = `TopHeader.tsx`;
+        
+        const blob = new Blob([codeToDownload], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        toast.success('File downloaded!', {
+            duration: 2000,
+            position: 'top-right',
+            style: {
+                background: '#1d1e22',
+                color: '#fff',
+                border: '1px solid #333',
+                borderRadius: '8px',
+            },
+        });
+    };
+
     return (
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
@@ -57,11 +85,18 @@ export default function TopHeaders() {
                             <h1 className="text-primary font-bold">React</h1>
                             <h1 className="text-primary font-bold">Tailwind</h1>
                         </div>
-                        <Icon 
-                            icon="solar:copy-outline" 
-                            className="text-white font-bold text-2xl cursor-pointer hover:text-primary transition-all duration-300" 
-                            onClick={handleCopyCode}
-                        />
+                        <div className="flex flex-row gap-4">
+                            <Icon 
+                                icon="solar:copy-outline" 
+                                className="text-white font-bold text-2xl cursor-pointer hover:text-primary transition-all duration-300" 
+                                onClick={handleCopyCode}
+                            />
+                            <Icon 
+                                icon="solar:download-outline" 
+                                className="text-white font-bold text-2xl cursor-pointer hover:text-primary transition-all duration-300" 
+                                onClick={handleDownload}
+                            />
+                        </div>
                     </div>
 
                     <div className="text-white text-justify text-sm font-bold select-none">

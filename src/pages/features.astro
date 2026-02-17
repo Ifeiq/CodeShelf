@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import FeaturesComponent from '@/components/Features';
+---
+
+<Layout>
+    <Hero
+        title="Be more productive"
+        subtitle="Unlock efficiency with our pre-loaded features"
+        description="Supercharge your workflow and save time with a wide range of features ready to use out-of-the-box."
+    />
+
+    <FeaturesComponent client:only />
+</Layout>

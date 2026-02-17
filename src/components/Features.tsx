@@ -1,11 +1,11 @@
 import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { About } from "./Imports";
+import { Features as FeaturesSnippets } from "./Imports";
 
-export default function AboutUs() {
+export default function Features() {
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const selectedSnippet = About[selectedIndex];
+    const selectedSnippet = FeaturesSnippets[selectedIndex];
     const SelectedComponent = selectedSnippet?.component as React.ComponentType<any> | undefined;
 
     const handleCopyCode = async () => {
@@ -44,21 +44,11 @@ export default function AboutUs() {
         if (!selectedSnippet?.code || !selectedSnippet?.id) return;
         
         const codeToDownload = typeof selectedSnippet.code === 'string' ? selectedSnippet.code : String(selectedSnippet.code);
-        const fileName = `About.tsx`;
-        
-        const blob = new Blob([codeToDownload], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+        const fileName = `${selectedSnippet.id}.tsx`;
         
         toast.success('File downloaded!', {
             duration: 2000,
-            position: 'top-right',
+            position: 'top-right',   
             style: {
                 background: '#1d1e22',
                 color: '#fff',
@@ -72,30 +62,13 @@ export default function AboutUs() {
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
-                    <h1 className="text-6xl max-lg:text-center max-lg:text-3xl font-bold text-primary">About Us</h1>
-                    <h2 className="text-xl max-lg:text-center max-lg:text-sm font-bold text-secondary md:w-160">Make a Strong First Impression with Top Headers</h2>
-                </div>
-
-                <div>
-                    <div className="flex flex-row items-center justify-between gap-16 p-8 bg-white">
-                        <div className="">
-                            <h1 className="text-2xl font-bold">Lorem Ipsum</h1>
-                            <p className="text-sm text-black font-bold mt-4">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam facilisis, elit at cursus feugiat, tortor sem suscipit ipsum, in vehicula nibh urna vitae nunc.
-                            </p>
-                            <button className="mt-4 border-2 border-black text-black text-xs px-8 font-bold py-2 rounded-full">
-                                Learn More
-                            </button>
-                        </div>
-                        <div className="">
-                            <div className="w-50 h-50 border-2 border-black flex items-center justify-center">Image</div>
-                        </div>
-                    </div>
+                    <h1 className="text-6xl font-bold text-primary">Features</h1>
+                    <h2 className="text-xl font-bold text-secondary w-160">Complete Feature Components for Your Website</h2>
                 </div>
             </div>
 
-            <div className="flex flex-row max-lg:flex-col max-lg:gap-32 items-start justify-between w-full">
-                <div className="h-120 w-100 max-lg:w-full bg-[#1d1e22] flex flex-col gap-8 rounded-xl p-8 overflow-y-auto">
+            <div className="flex flex-row items-start justify-between w-full">
+                <div className="h-120 w-100 bg-[#1d1e22] flex flex-col gap-8 rounded-xl p-8 overflow-y-auto">
                     <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-row gap-6">
                             <h1 className="text-primary font-bold">React</h1>
@@ -122,8 +95,8 @@ export default function AboutUs() {
                     </div>
                 </div>
 
-                <div className="w-1/2 max-lg:w-full flex flex-col gap-8 pr-8 overflow-y-auto h-120 relative">
-                    {About.map((snippet, index) => {
+                <div className="w-1/2 flex flex-col gap-8 pr-8 overflow-y-auto h-120 relative">
+                    {FeaturesSnippets.map((snippet, index) => {
                         const Component = snippet.component as React.ComponentType<any>;
                         const isSelected = selectedIndex === index;
 
