@@ -8,7 +8,7 @@ export default function Header() {
         { label: "Components", href: "/components" },
         { label: "Features", href: "/features" },
         { label: "Tutorials", href: "/tutorials" },
-        { label: "About Us", href: "#" },
+        { label: "Plugins", href: "/plugins" },
         { label: "Footers", href: "#" },
     ];
 

@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Importar todos os topHeaders
-const topHeadersModules = import.meta.glob('/src/topHeaders/*.jsx', {
+const topHeadersModules = import.meta.glob('/src/topHeaders/*.tsx', {
     import: 'default',
     eager: true
 });
