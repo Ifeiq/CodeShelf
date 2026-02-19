@@ -1,71 +1,285 @@
+"use client";
+
 import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
-import { Features as FeaturesSnippets } from "@/components/Imports";
+import { useState } from "react";
 
-export default function Feature() {
-    const handleDownload = (snippet: any) => {
-        if (!snippet?.code || !snippet?.id) return;
+interface WordPressPlugin {
+    name: string;
+    slug: string;
+    version: string;
+    author: string;
+    rating: number;
+    num_ratings: number;
+    active_installs: number;
+    download_link: string;
+    last_updated: string;
+    short_description?: string;
+    icons?: { "1x"?: string; "2x"?: string; svg?: string };
+}
 
-        const codeToDownload = typeof snippet.code === 'string' ? snippet.code : String(snippet.code);
-        const fileExtension = snippet.fileType || 'tsx';
-        const fileName = `${snippet.id}.${fileExtension}`;
+interface QueryResult {
+    plugins: WordPressPlugin[];
+    info: { page: number; pages: number; results: number };
+}
 
-        const blob = new Blob([codeToDownload], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = fileName;
+export default function Plugins() {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [author, setAuthor] = useState("");
+    const [tag, setTag] = useState("");
+    const [plugins, setPlugins] = useState<WordPressPlugin[]>([]);
+    const [info, setInfo] = useState<QueryResult["info"] | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [page, setPage] = useState(1);
+    const perPage = 4;
+
+    const fetchPlugins = async (pageNum: number = 1) => {
+        const search = searchTerm.trim();
+        if (!search) {
+            toast.error("Digite um termo para buscar", {
+                duration: 2000,
+                position: "top-right",
+                style: {
+                    background: "#1d1e22",
+                    color: "#fff",
+                    border: "1px solid #333",
+                    borderRadius: "8px",
+                },
+            });
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            const params = new URLSearchParams({
+                action: "query_plugins",
+                "request[search]": search,
+                "request[page]": String(pageNum),
+                "request[per_page]": String(perPage),
+            });
+            if (author.trim()) params.set("request[author]", author.trim());
+            if (tag.trim()) params.set("request[tag]", tag.trim());
+
+            const response = await fetch(
+                `https://api.wordpress.org/plugins/info/1.2/?${params.toString()}`
+            );
+            const data = await response.json();
+
+            if (data.error) {
+                setError(data.error);
+                setPlugins([]);
+                setInfo(null);
+                toast.error(data.error, {
+                    duration: 2000,
+                    position: "top-right",
+                    style: {
+                        background: "#1d1e22",
+                        color: "#fff",
+                        border: "1px solid #333",
+                        borderRadius: "8px",
+                    },
+                });
+                return;
+            }
+
+            const pluginsList = (data.plugins || []).map((p: any) => ({
+                name: String(p.name || "").replace(/&#8217;/g, "'").replace(/&amp;/g, "&"),
+                slug: p.slug || "",
+                version: p.version || "",
+                author: typeof p.author === "string" ? p.author.replace(/<[^>]*>/g, "").trim() : "Unknown",
+                rating: p.rating || 0,
+                num_ratings: p.num_ratings || 0,
+                active_installs: p.active_installs || 0,
+                download_link: p.download_link || "",
+                last_updated: p.last_updated || "",
+                short_description: p.short_description,
+                icons: p.icons,
+            }));
+
+            setPlugins(pluginsList);
+            setInfo(data.info || { page: 1, pages: 1, results: 0 });
+            setPage(pageNum);
+
+            toast.success(`${pluginsList.length} plugin(s) encontrado(s)`, {
+                duration: 2000,
+                position: "top-right",
+                style: {
+                    background: "#1d1e22",
+                    color: "#fff",
+                    border: "1px solid #333",
+                    borderRadius: "8px",
+                },
+            });
+        } catch {
+            setError("Erro ao buscar plugins. Tente novamente.");
+            setPlugins([]);
+            setInfo(null);
+            toast.error("Erro ao buscar plugins", {
+                duration: 2000,
+                position: "top-right",
+                style: {
+                    background: "#1d1e22",
+                    color: "#fff",
+                    border: "1px solid #333",
+                    borderRadius: "8px",
+                },
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleDownload = (pluginData: WordPressPlugin) => {
+        if (!pluginData.download_link) return;
+
+        const link = document.createElement("a");
+        link.href = pluginData.download_link;
+        link.download = `${pluginData.slug}.zip`;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        URL.revokeObjectURL(url);
 
-        toast.success(`${fileName} downloaded!`, {
+        toast.success(`${pluginData.slug}.zip baixando!`, {
             duration: 2000,
-            position: 'top-right',
+            position: "top-right",
             style: {
-                background: '#1d1e22',
-                color: '#fff',
-                border: '1px solid #333',
-                borderRadius: '8px',
+                background: "#1d1e22",
+                color: "#fff",
+                border: "1px solid #333",
+                borderRadius: "8px",
             },
         });
     };
+
+    const stripHtml = (html?: string) =>
+        html ? html.replace(/<[^>]*>/g, "").trim() : "";
 
     return (
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
                     <h1 className="text-6xl font-bold text-primary">Plugins</h1>
-                    <h2 className="text-xl font-bold text-secondary w-160">Download Plugins</h2>
+                    <h2 className="text-xl font-bold text-secondary w-160">
+                        Buscar plugins do WordPress.org
+                    </h2>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                {FeaturesSnippets.map((snippet) => {
-                    const fileExtension = snippet.fileType || 'tsx';
-                    const iconMap: { [key: string]: string } = {
-                        'tsx': 'vscode-icons:file-type-typescript',
-                        'ts': 'vscode-icons:file-type-typescript-official'
-                    };
-
-                    return (
-                        <div
-                            key={snippet.id}
-                            onClick={() => handleDownload(snippet)}
-                            className="flex flex-col items-center justify-center gap-4 p-8 bg-[#1d1e22] rounded-xl cursor-pointer hover:bg-[#2a2b30] hover:scale-105 transition-all duration-300 border-2 border-transparent hover:border-primary"
+            <div className="flex flex-col gap-6 w-full mx-auto relative">
+                <div className="flex flex-col gap-3 w-6/10 mx-auto">
+                    <div className="flex gap-3 ">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onKeyDown={(e) => e.key === "Enter" && fetchPlugins(1)}
+                            placeholder="Termo de busca (ex: backup, elementor, seo)"
+                            className="flex-1 px-4 py-3 bg-[#1d1e22] border-2 border-[#333] rounded-xl text-white placeholder:text-gray-500 focus:border-primary focus:outline-none transition-colors"
+                        />
+                        <button
+                            onClick={() => fetchPlugins(1)}
+                            disabled={loading}
+                            className="px-6 py-3 bg-primary text-white font-bold rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center gap-2 shrink-0"
                         >
-                            <Icon
-                                icon={iconMap[fileExtension] || 'vscode-icons:file-type-typescript'}
-                                className="text-6xl"
-                            />
-                            <div className="flex flex-col items-center justify-center gap-1">
-                                <p className="text-white font-bold text-center text-sm">{snippet.id}.{fileExtension}</p>
-                                <p className="text-secondary text-xs">Click to download</p>
+                            {loading ? (
+                                <>
+                                    <Icon icon="svg-spinners:90-ring-with-bg" className="text-xl" />
+                                    Buscando...
+                                </>
+                            ) : (
+                                <>
+                                    <Icon icon="mdi:magnify" className="text-xl" />
+                                    Buscar
+                                </>
+                            )}
+                        </button>
+                    </div>
+                </div>
+
+                {error && (
+                    <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400">
+                        {error}
+                    </div>
+                )}
+
+                {info && info.results > 0 && (
+                    <p className="text-gray-500 text-sm text-center">
+                        {info.results.toLocaleString()} resultado(s) • Página {info.page} de {info.pages}
+                    </p>
+                )}
+
+                <div className="grid gap-4 sm:grid-cols-1 lg:grid-cols-2 w-6/10 mx-auto">
+                    {plugins.map((plugin) => (
+                        <div
+                            key={plugin.slug}
+                            onClick={() => handleDownload(plugin)}
+                            className="flex gap-4 p-6 bg-[#1d1e22] rounded-xl cursor-pointer hover:bg-[#2a2b30] hover:scale-[1.02] transition-all duration-300 border-2 border-transparent hover:border-primary"
+                        >
+                            <div className="shrink-0">
+                                {plugin.icons?.svg || plugin.icons?.["1x"] || plugin.icons?.["2x"] ? (
+                                    <img
+                                        src={plugin.icons.svg || plugin.icons["2x"] || plugin.icons["1x"]}
+                                        alt=""
+                                        className="w-16 h-16 rounded-lg object-contain bg-[#0d0d0d]"
+                                    />
+                                ) : (
+                                    <Icon
+                                        icon="simple-icons:wordpress"
+                                        className="text-5xl text-[#21759b]"
+                                    />
+                                )}
+                            </div>
+                            <div className="flex flex-col gap-1 min-w-0 flex-1">
+                                <h3 className="text-lg font-bold text-white truncate">{plugin.name}</h3>
+                                <p className="text-secondary text-xs">v{plugin.version} • {plugin.author}</p>
+                                {plugin.short_description && (
+                                    <p className="text-gray-400 text-sm mt-1 line-clamp-2">
+                                        {stripHtml(plugin.short_description)}
+                                    </p>
+                                )}
+                                <div className="flex flex-wrap gap-3 mt-2 text-xs text-gray-500">
+                                    <span>⭐ {plugin.rating}%</span>
+                                    <span>📥 {plugin.active_installs >= 1e6 ? `${(plugin.active_installs / 1e6).toFixed(1)}M+` : plugin.active_installs >= 1e3 ? `${(plugin.active_installs / 1e3).toFixed(0)}K+` : plugin.active_installs}+</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-primary text-xs font-medium mt-2">
+                                    <Icon icon="mdi:download" />
+                                    Clique para baixar
+                                </div>
                             </div>
                         </div>
-                    );
-                })}
+                    ))}
+                </div>
+
+                {info && info.pages > 1 && (
+                    <div className="absolute top-1/2 -translate-y-1/2 flex items-center justify-between w-full">
+                        <button
+                            onClick={() => fetchPlugins(page - 1)}
+                            disabled={page <= 1 || loading}
+                            className="px-4 py-2 bg-[#1d1e22] border border-[#333] rounded-lg text-white disabled:opacity-50 hover:border-primary/50 transition-colors"
+                        >
+                            ← Anterior
+                        </button>
+
+                        <button
+                            onClick={() => fetchPlugins(page + 1)}
+                            disabled={page >= info.pages || loading}
+                            className="px-4 py-2 bg-[#1d1e22] border border-[#333] rounded-lg text-white disabled:opacity-50 hover:border-primary/50 transition-colors"
+                        >
+                            Próxima →
+                        </button>
+                    </div>
+                )}
+
+                {!loading && plugins.length === 0 && searchTerm.trim() && !error && (
+                    <p className="text-gray-500 text-center py-8">
+                        Nenhum plugin encontrado. Tente outro termo.
+                    </p>
+                )}
             </div>
         </section>
     );
