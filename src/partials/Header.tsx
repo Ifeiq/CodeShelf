@@ -5,9 +5,9 @@ export default function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const menu = [
-        { label: "Components", href: "/components" },
+        { label: "Componentes", href: "/components" },
         { label: "Features", href: "/features" },
-        { label: "Tutorials", href: "/tutorials" },
+        { label: "Tutoriais", href: "/tutorials" },
         { label: "Plugins", href: "/plugins" },
         { label: "Blog", href: "/blog" },
     ];
@@ -37,11 +37,11 @@ export default function Header() {
 			{/* Desktop Buttons */}
 			<div className="hidden md:flex flex-row gap-4 lg:gap-6">
 				<a href="/features" className="flex flex-row items-center px-8 py-2 bg-white rounded-full shadow font-bold text-black text-base focus:outline-none transition-colors duration-150 hover:bg-gray-100">
-					<span className="hidden lg:inline">Search</span>
+					<span className="hidden lg:inline">Buscar</span>
 				</a>
 				<a href="/create" className="flex flex-row items-center px-4 lg:px-7 py-2 bg-primary rounded-full shadow font-bold text-white text-base focus:outline-none transition-colors duration-150 hover:bg-cyan-400">
-					<span className="hidden lg:inline">Create new project</span>
-					<span className="lg:hidden">Create</span>
+					<span className="hidden lg:inline">Criar novo projeto</span>
+					<span className="lg:hidden">Criar</span>
 				</a>
 			</div>
 
@@ -49,7 +49,7 @@ export default function Header() {
 			<button 
 				className="md:hidden z-20 text-white p-2"
 				onClick={() => setIsMenuOpen(!isMenuOpen)}
-				aria-label="Toggle menu"
+				aria-label="Abrir ou fechar menu"
 			>
 				<Icon icon={isMenuOpen ? "mdi:close" : "mdi:menu"} width="32" height="32" />
 			</button>
@@ -77,10 +77,10 @@ export default function Header() {
 							<span className="mr-2">
 								<Icon icon="mdi:magnify" width="22" height="22" />
 							</span>
-							Search
+							Buscar
 						</button>
 						<a href="/create" className="flex flex-row items-center justify-center px-7 py-3 bg-primary rounded-full shadow font-bold text-white text-base focus:outline-none transition-colors duration-150 hover:bg-cyan-400">
-							Create new project
+							Criar novo projeto
 						</a>
 					</div>
 				</div>

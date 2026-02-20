@@ -20,7 +20,7 @@ export default function Feature() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
         
-        toast.success(`${fileName} downloaded!`, {
+        toast.success(`${fileName} baixado!`, {
             duration: 2000,
             position: 'top-right',
             style: {
@@ -37,7 +37,7 @@ export default function Feature() {
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
                     <h1 className="text-6xl font-bold text-primary">Features</h1>
-                    <h2 className="text-xl font-bold text-secondary w-160">Download Feature Components</h2>
+                    <h2 className="text-xl font-bold text-secondary w-160">Baixar Componentes de Features</h2>
                 </div>
             </div>
 
@@ -61,7 +61,7 @@ export default function Feature() {
                             />
                             <div className="flex flex-col items-center justify-center gap-1">
                                 <p className="text-white font-bold text-center text-sm">{snippet.id}.{fileExtension}</p>
-                                <p className="text-secondary text-xs">Click to download</p>
+                                <p className="text-secondary text-xs">Clique para baixar</p>
                             </div>
                         </div>
                     );

@@ -15,7 +15,7 @@ export default function Plans() {
 
         try {
             await navigator.clipboard.writeText(codeToCopy);
-            toast.success('Code copied to clipboard!', {
+            toast.success('Código copiado!', {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -27,7 +27,7 @@ export default function Plans() {
             });
         } catch (err) {
             console.error('Error copying code:', err);
-            toast.error('Failed to copy code', {
+            toast.error('Falha ao copiar código', {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -56,7 +56,7 @@ export default function Plans() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
         
-        toast.success('File downloaded!', {
+        toast.success('Arquivo baixado!', {
             duration: 2000,
             position: 'top-right',
             style: {
@@ -72,8 +72,8 @@ export default function Plans() {
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
-                    <h1 className="text-6xl font-bold text-primary">Plans</h1>
-                    <h2 className="text-xl font-bold text-secondary w-160">Pricing Plans for Every Need</h2>
+                    <h1 className="text-6xl font-bold text-primary">Planos</h1>
+                    <h2 className="text-xl font-bold text-secondary w-160">Planos de preço para cada necessidade</h2>
                 </div>
 
                 <div className="flex flex-row gap-8 items-center justify-center relative">

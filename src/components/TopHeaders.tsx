@@ -15,7 +15,7 @@ export default function TopHeaders() {
         
         try {
             await navigator.clipboard.writeText(codeToCopy);
-            toast.success('Code copied to clipboard!', {
+            toast.success('Código copiado!', {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -27,7 +27,7 @@ export default function TopHeaders() {
             });
         } catch (err) {
             console.error('Error copying code:', err);
-            toast.error('Failed to copy code', {
+            toast.error('Falha ao copiar código', {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -56,7 +56,7 @@ export default function TopHeaders() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
         
-        toast.success('File downloaded!', {
+        toast.success('Arquivo baixado!', {
             duration: 2000,
             position: 'top-right',
             style: {
@@ -73,7 +73,7 @@ export default function TopHeaders() {
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
                     <h1 className="text-6xl max-lg:text-center max-lg:text-3xl font-bold text-primary">Top Headers</h1>
-                    <h2 className="text-xl max-lg:text-center max-lg:text-sm font-bold text-secondary px-4 md:w-160">Make a Strong First Impression with Top Headers</h2>
+                    <h2 className="text-xl max-lg:text-center max-lg:text-sm font-bold text-secondary px-4 md:w-160">Cause uma forte primeira impressão com Top Headers</h2>
                 </div>
                 <img src="/images/Top_Headers.png" alt="Top Headers" className="w-1/2 max-lg:hidden" />
             </div>

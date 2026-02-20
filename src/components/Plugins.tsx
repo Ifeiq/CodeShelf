@@ -144,7 +144,7 @@ export default function Plugins() {
         link.click();
         document.body.removeChild(link);
 
-        toast.success(`${pluginData.slug}.zip baixando!`, {
+        toast.success(`${pluginData.slug}.zip sendo baixado!`, {
             duration: 2000,
             position: "top-right",
             style: {
@@ -248,7 +248,7 @@ export default function Plugins() {
                                 </div>
                                 <div className="flex items-center gap-2 text-primary text-xs font-medium mt-2">
                                     <Icon icon="mdi:download" />
-                                    Clique para baixar
+                                    Clique para baixar o plugin
                                 </div>
                             </div>
                         </div>

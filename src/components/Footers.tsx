@@ -15,7 +15,7 @@ export default function Footers() {
 
         try {
             await navigator.clipboard.writeText(codeToCopy);
-            toast.success('Code copied to clipboard!', {
+            toast.success('Código copiado!', {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -27,7 +27,7 @@ export default function Footers() {
             });
         } catch (err) {
             console.error('Error copying code:', err);
-            toast.error('Failed to copy code', {
+            toast.error('Falha ao copiar código', {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -56,7 +56,7 @@ export default function Footers() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
         
-        toast.success('File downloaded!', {
+        toast.success('Arquivo baixado!', {
             duration: 2000,
             position: 'top-right',
             style: {
@@ -72,8 +72,8 @@ export default function Footers() {
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
-                    <h1 className="text-6xl font-bold text-primary">Footers</h1>
-                    <h2 className="text-xl font-bold text-secondary w-160">Complete Header Components for Your Website</h2>
+                    <h1 className="text-6xl font-bold text-primary">Rodapés</h1>
+                    <h2 className="text-xl font-bold text-secondary w-160">Componentes completos de rodapé para seu site</h2>
                 </div>
 
                 <div className="w-1/2 flex flex-row items-start justify-center gap-24 py-4 bg-white">

@@ -520,7 +520,7 @@ import Footer from "@/partials/Footer";
                     <p className="text-white text-sm mb-2">É comum vermos alguns bugs, principalmente na Cloudflare. Os Logs são bem claros. Porém tem um que é específico entre o Astro e Cloudflare.</p>
 
                     <div className="mt-4">
-                        <h4 className="text-primary font-bold text-lg mb-2">BUG UNCAUGHT ERROR</h4>
+                        <h4 className="text-primary font-bold text-lg mb-2">ERRO BUG UNCAUGHT</h4>
                         <p className="text-white text-sm mb-2">Quando usamos o Astro com SSR (Server-side-rendering), precisamos adicionar um adaptador, para ele não funcionar somente estático, mas como um servidor que vai renderizar processos.</p>
 
                         <p className="text-white text-sm mb-2 mt-4">Para adicionar o adaptador da Cloudflare e do Astro, utilize:</p>
@@ -618,7 +618,7 @@ export default defineConfig({
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
-                    <h1 className="text-6xl font-bold text-primary">Project Setup</h1>
+                    <h1 className="text-6xl font-bold text-primary">Configuração do Projeto</h1>
                     <h2 className="text-xl font-bold text-secondary w-160">Etapas para criar um projeto em AstroJS</h2>
                 </div>
             </div>

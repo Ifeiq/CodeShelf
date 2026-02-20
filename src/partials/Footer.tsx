@@ -1,15 +1,15 @@
 import { Icon } from "@iconify/react";
 
 const navLinks = [
-	{ label: "Components", href: "/components", icon: "mdi:view-grid" },
+	{ label: "Componentes", href: "/components", icon: "mdi:view-grid" },
 	{ label: "Features", href: "/features", icon: "mdi:star" },
-	{ label: "Tutorials", href: "/tutorials", icon: "mdi:book-open-page-variant" },
+	{ label: "Tutoriais", href: "/tutorials", icon: "mdi:book-open-page-variant" },
 	{ label: "Plugins", href: "/plugins", icon: "mdi:puzzle" },
 	{ label: "Blog", href: "/blog", icon: "mdi:post" },
 ];
 
 const resourceLinks = [
-	{ label: "Create Project", href: "/create", icon: "mdi:plus-circle" },
+	{ label: "Criar Projeto", href: "/create", icon: "mdi:plus-circle" },
 ];
 
 export default function Footer() {

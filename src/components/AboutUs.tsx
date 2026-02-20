@@ -15,7 +15,7 @@ export default function AboutUs() {
 
         try {
             await navigator.clipboard.writeText(codeToCopy);
-            toast.success('Code copied to clipboard!', {
+            toast.success('Código copiado!', {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -27,7 +27,7 @@ export default function AboutUs() {
             });
         } catch (err) {
             console.error('Error copying code:', err);
-            toast.error('Failed to copy code', {
+            toast.error('Falha ao copiar código', {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -56,7 +56,7 @@ export default function AboutUs() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
         
-        toast.success('File downloaded!', {
+        toast.success('Arquivo baixado!', {
             duration: 2000,
             position: 'top-right',
             style: {
@@ -72,8 +72,8 @@ export default function AboutUs() {
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 gap-32 flex flex-col">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col gap-2 items-start justify-start">
-                    <h1 className="text-6xl max-lg:text-center max-lg:text-3xl font-bold text-primary">About Us</h1>
-                    <h2 className="text-xl max-lg:text-center max-lg:text-sm font-bold text-secondary md:w-160">Make a Strong First Impression with Top Headers</h2>
+                    <h1 className="text-6xl max-lg:text-center max-lg:text-3xl font-bold text-primary">Sobre Nós</h1>
+                    <h2 className="text-xl max-lg:text-center max-lg:text-sm font-bold text-secondary md:w-160">Deixe sua marca com componentes About Us</h2>
                 </div>
 
                 <div>
@@ -84,7 +84,7 @@ export default function AboutUs() {
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam facilisis, elit at cursus feugiat, tortor sem suscipit ipsum, in vehicula nibh urna vitae nunc.
                             </p>
                             <button className="mt-4 border-2 border-black text-black text-xs px-8 font-bold py-2 rounded-full">
-                                Learn More
+                                Saiba mais
                             </button>
                         </div>
                         <div className="">

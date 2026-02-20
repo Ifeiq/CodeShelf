@@ -51,7 +51,7 @@ export default function TopHeader() {
                     <button
                         onClick={handlePrev}
                         className="absolute -left-10 top-1/2 -translate-y-1/2 z-10  hover:scale-110 cursor-pointer text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
-                        aria-label="Previous slide"
+                        aria-label="Slide anterior"
                     >
                         <Icon icon="mdi:chevron-left" className="text-2xl" />
                     </button>
@@ -88,7 +88,7 @@ export default function TopHeader() {
                     <button
                         onClick={handleNext}
                         className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 hover:scale-110 cursor-pointer text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
-                        aria-label="Next slide"
+                        aria-label="Próximo slide"
                     >
                         <Icon icon="mdi:chevron-right" className="text-2xl" />
                     </button>
@@ -96,7 +96,7 @@ export default function TopHeader() {
                     <button
                         onClick={handleClose}
                         className="absolute -right-20 top-1/2  -translate-y-1/2 z-10 hover:scale-110 cursor-pointer hover:text-red-500 transition-all duration-300 text-white p-3 rounded-full transition-all duration-300 shadow-2xl"
-                        aria-label="Next slide"
+                        aria-label="Próximo slide"
                     >
                         <Icon icon="famicons:close" className="text-2xl" />
                     </button>
