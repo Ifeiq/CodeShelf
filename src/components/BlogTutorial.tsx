@@ -83,7 +83,7 @@ export default function BlogTutorial() {
 								<code className="text-primary text-sm">src/pages/posts/[slug].astro</code>
 							</div>
 							<a
-								href="/downloads/slug.astro"
+								href="/downloads/[slug].astro"
 								download="[slug].astro"
 								className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary text-black font-bold rounded-lg hover:bg-cyan-400 transition-colors text-sm shrink-0 w-fit"
 							>
