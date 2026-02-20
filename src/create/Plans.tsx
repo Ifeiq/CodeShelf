@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Importar todos os Plans
-const plansModules = import.meta.glob('/src/Plans/*.jsx', { 
+const plansModules = import.meta.glob('../UI/Plans/*.tsx', { 
     import: 'default', 
     eager: true 
 });
@@ -19,7 +19,7 @@ export default function Plans() {
     const [isOpen, setIsOpen] = useState(true);
     // Converter os módulos em array
     const plans = Object.entries(plansModules).map(([path, component], index) => {
-        const fileName = path.split('/').pop()?.replace('.jsx', '') || `plan-${index}`;
+        const fileName = path.split('/').pop()?.replace(/\.(tsx|jsx)$/, '') || `plan-${index}`;
         return {
             id: fileName,
             component: component as React.ComponentType<any>,

@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Importar todos os topHeaders
-const topHeadersModules = import.meta.glob('/src/topHeaders/*.tsx', {
+const topHeadersModules = import.meta.glob('../UI/topHeaders/*.tsx', {
     import: 'default',
     eager: true
 });
@@ -19,7 +19,7 @@ export default function TopHeader() {
     const [isOpen, setIsOpen] = useState(true);
     // Converter os módulos em array
     const topHeaders = Object.entries(topHeadersModules).map(([path, component], index) => {
-        const fileName = path.split('/').pop()?.replace('.jsx', '') || `topHeader-${index}`;
+        const fileName = path.split('/').pop()?.replace(/\.(tsx|jsx)$/, '') || `topHeader-${index}`;
         return {
             id: fileName,
             component: component as React.ComponentType<any>,

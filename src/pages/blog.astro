@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogComponent    from "@/components/Blog";
+import BlogTutorial from "@/components/BlogTutorial";
+
+export const prerender = false;
+
+const BLOG_API_URL = "http://blog-teste.local";
+---
+
+<Layout>
+  <BlogComponent client:load blogApiUrl={BLOG_API_URL} />
+  <BlogTutorial client:load />
+</Layout>

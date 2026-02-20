@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Importar todos os Headers
-const headersModules = import.meta.glob('/src/Headers/*.jsx', { 
+const headersModules = import.meta.glob('../UI/Headers/*.tsx', { 
     import: 'default', 
     eager: true 
 });
@@ -21,7 +21,7 @@ export default function Header() {
 
     // Converter os módulos em array
     const headers = Object.entries(headersModules).map(([path, component], index) => {
-        const fileName = path.split('/').pop()?.replace('.jsx', '') || `header-${index}`;
+        const fileName = path.split('/').pop()?.replace(/\.(tsx|jsx)$/, '') || `header-${index}`;
         return {
             id: fileName,
             component: component as React.ComponentType<any>,

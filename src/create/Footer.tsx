@@ -7,8 +7,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Importar todos os topHeaders
-const footersModules = import.meta.glob('/src/footers/*.jsx', {
+// Importar todos os Footers
+const footersModules = import.meta.glob('../UI/Footers/*.tsx', {
     import: 'default',
     eager: true
 });
@@ -19,7 +19,7 @@ export default function Footer() {
     const [isOpen, setIsOpen] = useState(true);
     // Converter os módulos em array
     const footers = Object.entries(footersModules).map(([path, component], index) => {
-        const fileName = path.split('/').pop()?.replace('.jsx', '') || `Footer-${index}`;
+        const fileName = path.split('/').pop()?.replace(/\.(tsx|jsx)$/, '') || `footer-${index}`;
         return {
             id: fileName,
             component: component as React.ComponentType<any>,

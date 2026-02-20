@@ -9,7 +9,7 @@ export default function Header() {
         { label: "Features", href: "/features" },
         { label: "Tutorials", href: "/tutorials" },
         { label: "Plugins", href: "/plugins" },
-        { label: "Footers", href: "#" },
+        { label: "Blog", href: "/blog" },
     ];
 
 	return (

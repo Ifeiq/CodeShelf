@@ -7,8 +7,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Importar todos os Plans
-const aboutModules = import.meta.glob('/src/About/*.jsx', { 
+// Importar todos os About
+const aboutModules = import.meta.glob('../UI/About/*.tsx', { 
     import: 'default', 
     eager: true 
 });
@@ -19,7 +19,7 @@ export default function About() {
     const [isOpen, setIsOpen] = useState(true);
     // Converter os módulos em array
     const about = Object.entries(aboutModules).map(([path, component], index) => {
-        const fileName = path.split('/').pop()?.replace('.jsx', '') || `about-${index}`;
+        const fileName = path.split('/').pop()?.replace(/\.(tsx|jsx)$/, '') || `about-${index}`;
         return {
             id: fileName,
             component: component as React.ComponentType<any>,
