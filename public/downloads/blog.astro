@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Blog from "@/components/Blog";
+
+export const prerender = false;
+
+const BLOG_API_URL = "https://seu-wordpress.com"; // Altere para a URL do seu WordPress
+---
+
+<Layout>
+  <Blog client:load blogApiUrl={BLOG_API_URL} />
+</Layout>

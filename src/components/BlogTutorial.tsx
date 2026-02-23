@@ -92,9 +92,7 @@ export default function BlogTutorial() {
 							</a>
 						</div>
 					</div>
-					<p className="text-gray-500 text-xs mt-3">
-						<strong className="text-white">Importante:</strong> Renomeie <code className="text-primary">slug.astro</code> para <code className="text-primary">[slug].astro</code> e coloque dentro da pasta <code className="text-primary">pages/posts/</code>
-					</p>
+					
 				</div>
 
 				{/* Passo 3 */}
@@ -106,12 +104,26 @@ export default function BlogTutorial() {
 					<p className="text-gray-400 text-sm leading-relaxed mb-4">
 						Crie o arquivo <code className="text-primary">src/pages/blog.astro</code>, importe o componente Blog e defina a URL do seu WordPress:
 					</p>
+					<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 p-3 bg-[#131315] rounded-lg border border-gray-700">
+						<div className="flex items-center gap-2">
+							<Icon icon="mdi:file-document" className="text-primary flex-shrink-0" />
+							<code className="text-primary text-sm">src/pages/blog.astro</code>
+						</div>
+						<a
+							href="/downloads/blog.astro"
+							download="blog.astro"
+							className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary text-black font-bold rounded-lg hover:bg-cyan-400 transition-colors text-sm shrink-0 w-fit"
+						>
+							<Icon icon="mdi:download" className="text-base" />
+							Baixar
+						</a>
+					</div>
 					<div className="relative bg-[#131315] rounded-lg p-4 border border-gray-700 overflow-x-auto">
 						<button
 							className="absolute top-3 right-3 text-primary hover:text-white transition-colors z-10"
 							title="Copiar código"
 							onClick={() => copyToClipboard(`---
-import Layout from "../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Blog from "@/components/Blog";
 
 export const prerender = false;
@@ -127,7 +139,7 @@ const BLOG_API_URL = "https://seu-wordpress.com"; // Altere para a URL do seu Wo
 						</button>
 						<pre className="text-sm text-white pr-10">
 {`---
-import Layout from "../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Blog from "@/components/Blog";
 
 export const prerender = false;
