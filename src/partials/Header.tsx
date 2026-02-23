@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import Search from "@/components/Search";
 
 export default function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,10 +36,8 @@ export default function Header() {
 			</nav>
 
 			{/* Desktop Buttons */}
-			<div className="hidden md:flex flex-row gap-4 lg:gap-6">
-				<a href="/features" className="flex flex-row items-center px-8 py-2 bg-white rounded-full shadow font-bold text-black text-base focus:outline-none transition-colors duration-150 hover:bg-gray-100">
-					<span className="hidden lg:inline">Buscar</span>
-				</a>
+			<div className="hidden md:flex flex-row gap-4 lg:gap-6 items-center">
+				<Search variant="desktop" />
 				<a href="/create" className="flex flex-row items-center px-4 lg:px-7 py-2 bg-primary rounded-full shadow font-bold text-white text-base focus:outline-none transition-colors duration-150 hover:bg-cyan-400">
 					<span className="hidden lg:inline">Criar novo projeto</span>
 					<span className="lg:hidden">Criar</span>
@@ -73,12 +72,7 @@ export default function Header() {
 						</ul>
 					</nav>
 					<div className="flex flex-col gap-3 px-4 pb-4 border-t border-gray-800 pt-4">
-						<button className="flex flex-row items-center justify-center px-8 py-3 bg-white rounded-full shadow font-bold text-black text-base focus:outline-none transition-colors duration-150 hover:bg-gray-100">
-							<span className="mr-2">
-								<Icon icon="mdi:magnify" width="22" height="22" />
-							</span>
-							Buscar
-						</button>
+						<Search variant="mobile" onNavigate={() => setIsMenuOpen(false)} />
 						<a href="/create" className="flex flex-row items-center justify-center px-7 py-3 bg-primary rounded-full shadow font-bold text-white text-base focus:outline-none transition-colors duration-150 hover:bg-cyan-400">
 							Criar novo projeto
 						</a>

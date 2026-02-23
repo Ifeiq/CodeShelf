@@ -1,0 +1,16 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import TodoComponent from '@/components/Todo';
+---
+
+<Layout>
+    <Hero
+        title="Todo"
+        subtitle="Lista de tarefas"
+        description="Adicione tarefas e marque como concluídas. Seus dados ficam salvos no navegador."
+        client:only
+    />
+
+    <TodoComponent client:only/>
+</Layout>
