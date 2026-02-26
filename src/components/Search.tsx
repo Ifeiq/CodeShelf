@@ -12,6 +12,7 @@ const PAGES = [
 	{ label: "Plugins", href: "/plugins" },
 	{ label: "Blog", href: "/blog" },
 	{ label: "Todo", href: "/todo" },
+	{ label: "WhatsApp", href: "/whatsapp" },
 	{ label: "Criar novo projeto", href: "/create" },
 ];
 
