@@ -1,0 +1,16 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import VideoComponent from '@/components/Video';
+---
+
+<Layout>
+    <Hero
+        title="Vídeo"
+        subtitle="Comprima seus vídeos"
+        description="Comprima seus vídeos com total liberdade usando compressão automática"
+        client:only
+    />
+
+    <VideoComponent client:only />
+</Layout>

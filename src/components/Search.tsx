@@ -11,7 +11,10 @@ const PAGES = [
 	{ label: "Ícones", href: "/icons" },
 	{ label: "Plugins", href: "/plugins" },
 	{ label: "Blog", href: "/blog" },
+	{ label: "Video", href: "/video" },
+	{ label: "Imagens", href: "/imagens" },
 	{ label: "Todo", href: "/todo" },
+	{ label: "DNS", href: "/dns" },
 	{ label: "WhatsApp", href: "/whatsapp" },
 	{ label: "Criar novo projeto", href: "/create" },
 ];

@@ -1,0 +1,16 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import ImagensComponent from '@/components/Imagens';
+---
+
+<Layout>
+    <Hero
+        title="Imagens"
+        subtitle="Edite e converta suas imagens"
+        description="Edite e converta suas imagens com total liberdade"
+        client:only
+    />
+
+    <ImagensComponent client:only/>
+</Layout>
