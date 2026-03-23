@@ -7,6 +7,7 @@ export default function Header() {
 
     const menu = [
         { label: "Componentes", href: "/components" },
+        { label: "shadcn/ui", href: "/shadcn" },
         { label: "Features", href: "/features" },
         { label: "Tutoriais", href: "/tutorials" },
         { label: "Ícones", href: "/icons" },

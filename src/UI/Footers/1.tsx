@@ -16,33 +16,33 @@ export default function Footer1() {
         </div>
 
         <div>
-            <h1 className="text-lg font-bold">Menu</h1>
-            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary">Item 1</p>
-            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary">Item 2</p>
-            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary">Item 3</p>
+            <h1 className="text-lg font-bold editable">Menu</h1>
+            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary editable">Item 1</p>
+            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary editable">Item 2</p>
+            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary editable">Item 3</p>
         </div>
 
         <div>
-            <h1 className="text-lg font-bold">Contact</h1>
-            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary">Item 1</p>
-            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary">Item 2</p>
-            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary">Item 3</p>
+            <h1 className="text-lg font-bold editable">Contact</h1>
+            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary editable">Item 1</p>
+            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary editable">Item 2</p>
+            <p className="text-sm text-black font-bold cursor-pointer transition-colors duration-300 hover:text-primary editable">Item 3</p>
         </div>
 
         <div>
-            <h1 className="text-lg font-bold">Social</h1>
+            <h1 className="text-lg font-bold editable">Social</h1>
             <div className="flex flex-col gap-4 mt-2">
                 <div aria-label="Instagram"  className="flex flex-row gap-2 items-center hover:translate-x-2 duration-300 cursor-pointer group">
                     <Icon icon="mdi:instagram" className="text-2xl text-black group-hover:text-primary transition-colors duration-300" />
-                    <p className="text-sm text-black font-bold group-hover:text-primary transition-colors duration-300">Instagram</p>
+                    <p className="text-sm text-black font-bold group-hover:text-primary transition-colors duration-300 editable">Instagram</p>
                 </div>
                 <div aria-label="Facebook" className="flex flex-row gap-2 items-center hover:translate-x-2 duration-300 cursor-pointer group">
                     <Icon icon="mdi:facebook" className="text-2xl text-black group-hover:text-primary transition-colors duration-300" />
-                    <p className="text-sm text-black font-bold group-hover:text-primary transition-colors duration-300">Facebook</p>
+                    <p className="text-sm text-black font-bold group-hover:text-primary transition-colors duration-300 editable">Facebook</p>
                 </div>
                 <div aria-label="WhatsApp"  className="flex flex-row gap-2 items-center hover:translate-x-2 duration-300 cursor-pointer group">
                     <Icon icon="mdi:whatsapp" className="text-2xl text-black group-hover:text-primary transition-colors duration-300" />
-                    <p className="text-sm text-black font-bold group-hover:text-primary transition-colors duration-300">WhatsApp</p>
+                    <p className="text-sm text-black font-bold group-hover:text-primary transition-colors duration-300 editable">WhatsApp</p>
                 </div>
             </div>
         </div>

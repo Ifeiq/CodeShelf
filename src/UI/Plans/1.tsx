@@ -29,19 +29,19 @@ export default function Plan1() {
         <div className="flex flex-row max-lg:flex-col items-center justify-center relative gap-8">
             {plans.map((plan, index) => (
                 <div key={index} className=" border-2 border-black rounded-xl px-12 py-8 bg-white rounded-xl">
-                    <h1 className="text-2xl font-bold text-black text-center">{plan.name}</h1>
+                    <h1 className="text-2xl font-bold text-black text-center editable">{plan.name}</h1>
                     <div className="flex flex-col gap-4 items-center justify-center mt-4">
                         {plan.items.map((item, index) => (
                             <div key={index} className="flex flex-row gap-2 items-center justify-center">
                                 <Icon icon={item.icon} className="text-2xl text-black" />
-                                <span className="text-sm text-black font-bold">{item.name}</span>
+                                <span className="text-sm text-black font-bold editable">{item.name}</span>
                             </div>
                         ))}
                     </div>
 
-                    <h1 className="text-xl font-bold text-black text-center mt-8">${plan.price}</h1>
+                    <h1 className="text-xl font-bold text-black text-center mt-8 editable">${plan.price}</h1>
 
-                    <h1 className="text-lg  mx-auto border-2 border-black rounded-full px-8 py-1 font-bold text-black text-center mt-4">Buy</h1>
+                    <h1 className="text-lg  mx-auto border-2 border-black rounded-full px-8 py-1 font-bold text-black text-center mt-4 editable cursor-pointer">Buy</h1>
                 </div>
             ))}
         </div>

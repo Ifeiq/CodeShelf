@@ -15,7 +15,7 @@ export default function TopHeader() {
                 <div className="h-5 w-5 border-4 border-black rounded-full"></div>
             </div>
 
-            <h1 className="text-black font-bold text-sm border-2 border-black rounded-full px-8 py-2 hover:scale-110 transition-all duration-300">button</h1>
+            <h1 className="text-black font-bold text-sm border-2 border-black rounded-full px-8 py-2 hover:scale-110 transition-all duration-300 editable cursor-pointer">button</h1>
         </div>
     );
 }

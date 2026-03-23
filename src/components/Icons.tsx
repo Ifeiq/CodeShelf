@@ -64,7 +64,7 @@ export default function Icons() {
 		setSearched(true);
 		try {
 			const res = await fetch(
-				`${ICONIFY_API}?query=${encodeURIComponent(searchTerm.trim())}&limit=10`
+				`${ICONIFY_API}?query=${encodeURIComponent(searchTerm.trim())}&limit=500`
 			);
 			const data = await res.json();
 			setIcons(data.icons ?? []);

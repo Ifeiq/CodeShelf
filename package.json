@@ -18,6 +18,7 @@
     "astro": "^5.16.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
     "formdata-node": "^6.0.3",
     "lucide-react": "^0.577.0",
     "node-fetch": "^3.3.2",
