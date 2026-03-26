@@ -3,16 +3,19 @@
 import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 
-const BLOG_API_URL = "http://blog-teste.local";
+const BLOG_API_URL =
+	"https://public-api.wordpress.com/wp/v2/sites/codeshelfblog.wordpress.com/posts";
 const PER_PAGE = 3;
 
 interface Post {
 	id: number;
 	slug: string;
 	date: string;
+	link?: string;
 	title: { rendered: string };
 	content: { rendered: string };
 	featured_media: number;
+	jetpack_featured_media_url?: string;
 	imageUrl?: string | null;
 }
 
@@ -33,18 +36,12 @@ function stripHtml(html: string, maxLength = 150) {
 		.trim() + "...";
 }
 
-async function getImageUrl(apiUrl: string, featuredMediaId: number): Promise<string | null> {
-	if (!featuredMediaId) return null;
-	try {
-		const res = await fetch(
-			`${apiUrl}/wp-json/wp/v2/media/${featuredMediaId}?_fields=source_url`
-		);
-		if (!res.ok) return null;
-		const media = await res.json();
-		return media.source_url;
-	} catch {
-		return null;
-	}
+function getPostsEndpoint(apiUrl: string): string {
+	const trimmed = apiUrl.trim().replace(/\/+$/, "");
+	if (trimmed.includes("/wp/v2/sites/")) return trimmed;
+
+	const siteId = trimmed.replace(/^https?:\/\//, "");
+	return `https://public-api.wordpress.com/wp/v2/sites/${siteId}/posts`;
 }
 
 function extractImageFromContent(html: string): string | null {
@@ -54,14 +51,15 @@ function extractImageFromContent(html: string): string | null {
 
 async function fetchPosts(apiUrl: string, page: number): Promise<Post[]> {
 	try {
+		const postsEndpoint = getPostsEndpoint(apiUrl);
 		const res = await fetch(
-			`${apiUrl}/wp-json/wp/v2/posts?page=${page}&per_page=${PER_PAGE}&_fields=id,title,slug,content,featured_media,date`
+			`${postsEndpoint}?page=${page}&per_page=${PER_PAGE}&_fields=id,title,slug,content,featured_media,date,link,jetpack_featured_media_url`
 		);
 		if (!res.ok) return [];
 		const posts: Post[] = await res.json();
 		const postsWithImages = await Promise.all(
 			posts.map(async (post) => {
-				let imageUrl = await getImageUrl(apiUrl, post.featured_media);
+				let imageUrl = post.jetpack_featured_media_url ?? null;
 				if (!imageUrl) imageUrl = extractImageFromContent(post.content.rendered);
 				return { ...post, imageUrl };
 			})

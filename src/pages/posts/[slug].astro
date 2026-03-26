@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-const BLOG_API_URL = "http://blog-teste.local";
+const BLOG_API_URL = "https://public-api.wordpress.com/wp/v2/sites/codeshelfblog.wordpress.com/posts";
 
 export const prerender = false;
 
@@ -8,7 +8,7 @@ const { slug } = Astro.params;
 
 let post;
 try {
-  const res = await fetch(`${BLOG_API_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed`);
+  const res = await fetch(`${BLOG_API_URL}?slug=${slug}&_embed`);
   if (!res.ok) {
     return Astro.redirect('/blog');
   }
@@ -27,7 +27,7 @@ const featuredImage = post._embedded && post._embedded['wp:featuredmedia'] ? pos
 // Formatando a data para a URL
 const postDate = new Date(post.date);
 const formattedDate = `${postDate.getFullYear()}/${String(postDate.getMonth() + 1).padStart(2, '0')}/${String(postDate.getDate()).padStart(2, '0')}`;
-const fullPostUrl = `${BLOG_API_URL}/${formattedDate}/${slug}/`;
+const fullPostUrl = post.link ?? `https://codeshelfblog.wordpress.com/${formattedDate}/${slug}/`;
 const canonicalUrl = `https://www.playmais.com.br/posts/${slug}/`;
 
 ---
@@ -45,7 +45,7 @@ const canonicalUrl = `https://www.playmais.com.br/posts/${slug}/`;
         
         <!-- Imagem Destacada -->
         {featuredImage && (
-          <img src={featuredImage} alt={post.title.rendered} class="w-full h-auto mb-6 rounded-lg shadow-lg" />
+          <img src={featuredImage} alt={post.title.rendered} class="h-1/2 mb-6 rounded-lg shadow-lg" />
         )}
         
         <!-- Título -->
