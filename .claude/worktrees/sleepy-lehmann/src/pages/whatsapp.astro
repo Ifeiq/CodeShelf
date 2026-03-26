@@ -1,0 +1,16 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import WhatsAppLinkGenerator from '@/components/WhatsAppLinkGenerator';
+---
+
+<Layout>
+    <Hero
+        title="WhatsApp"
+        subtitle="Gerador de link"
+        description="Crie links do WhatsApp com mensagem personalizada para compartilhar."
+        client:only
+    />
+
+    <WhatsAppLinkGenerator client:only/>
+</Layout>

@@ -1,10 +1,20 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import DynamicCodes from "@/components/DynamicCodes";
-import TesteComponent from "@/components/teste";
+export const prerender = false;
 
-const response = await fetch("http://localhost:3000/api/top-headers");
-const data = await response.json();
+const TOP_HEADERS_API_URL =
+  import.meta.env.PUBLIC_TOP_HEADERS_API_URL ?? "http://localhost:3000/api/top-headers";
+
+let data: { docs: { code: string }[] } = { docs: [] };
+try {
+  const response = await fetch(TOP_HEADERS_API_URL);
+  if (response.ok) {
+    data = await response.json();
+  }
+} catch {
+  data = { docs: [] };
+}
 ---
 
 <Layout>

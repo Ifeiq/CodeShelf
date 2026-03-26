@@ -1,0 +1,82 @@
+---
+import Layout from '@/layouts/Layout.astro';
+const BLOG_API_URL = "http://blog-teste.local";
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+let post;
+try {
+  const res = await fetch(`${BLOG_API_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed`);
+  if (!res.ok) {
+    return Astro.redirect('/blog');
+  }
+  const posts = await res.json();
+  post = posts[0];
+  if (!post) {
+    return Astro.redirect('/blog');
+  }
+} catch (error) {
+  console.error('Erro ao buscar post:', error);
+  return Astro.redirect('/blog');
+}
+
+const featuredImage = post._embedded && post._embedded['wp:featuredmedia'] ? post._embedded['wp:featuredmedia'][0].source_url : null;
+
+// Formatando a data para a URL
+const postDate = new Date(post.date);
+const formattedDate = `${postDate.getFullYear()}/${String(postDate.getMonth() + 1).padStart(2, '0')}/${String(postDate.getDate()).padStart(2, '0')}`;
+const fullPostUrl = `${BLOG_API_URL}/${formattedDate}/${slug}/`;
+const canonicalUrl = `https://www.playmais.com.br/posts/${slug}/`;
+
+---
+<Layout title={post.title.rendered}>
+  <section class="bg-primary text-white py-12">
+    <div class="max-w-6xl mx-auto bg-white p-6 px-10 rounded-lg shadow-lg">
+      
+      <!-- Conteúdo principal do blog -->
+      <article class="">
+        <!-- Botão de Voltar para o Blog -->
+        <a href="/blog" class="flex flex-row items-center text-black transition mb-8 hover:scale-101 transition-all duration-300">
+          <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+          <div class="text-black">Voltar para o Blog</div>
+        </a>
+        
+        <!-- Imagem Destacada -->
+        {featuredImage && (
+          <img src={featuredImage} alt={post.title.rendered} class="w-full h-auto mb-6 rounded-lg shadow-lg" />
+        )}
+        
+        <!-- Título -->
+        <h1 class="text-4xl text-black font-bold mb-6" set:html={post.title.rendered} />
+
+        <!-- Conteúdo -->
+        <div class="text-sm leading-relaxed text-black">
+          <Fragment set:html={post.content.rendered} />
+        </div>
+      </article>
+
+      <!-- Informações adicionais no rodapé -->
+      <footer class="mt-12 text-center bg-primary p-6 rounded-lg">
+        <h2 class="text-2xl font-bold mb-4">Informações</h2>
+        <p class="text-lg"><strong>Data de Publicação:</strong> {new Date(post.date).toLocaleDateString()}</p>
+        <div class="mt-6">
+          <!-- Links de compartilhamento -->
+        </div>
+      </footer>
+    </div>
+  </section>
+
+</Layout>
+
+<script is:inline>
+
+  const btnTeste = document.getElementById('_form_50_submit');
+  btnTeste.addEventListener('click', () => {
+    setTimeout(() => {
+      window.location.href = 'https://belluno.delipedev.com.br/wp-content/uploads/2025/01/Fazer_internamente_ou_terceirizar_-_BELLUNO_CALL_CENTER1.pdf';
+    }, 3000)
+  })
+
+</script>

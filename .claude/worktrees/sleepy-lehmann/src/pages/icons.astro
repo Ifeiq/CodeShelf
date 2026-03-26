@@ -1,0 +1,17 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import IconsComponent from '@/components/Icons';
+---
+
+<Layout>
+    <Hero
+        title="Ícones"
+        subtitle="Busque ícones"
+        description="Pesquise e copie ícones do Iconify para usar em seus projetos."
+        client:only
+    />
+
+    <IconsComponent client:only/>
+
+</Layout>

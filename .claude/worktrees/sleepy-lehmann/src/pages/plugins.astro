@@ -1,0 +1,17 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import PluginsComponent from '@/components/Plugins';
+---
+
+<Layout>
+    <Hero
+        title="Plugins WordPress"
+        subtitle="Atualize seus plugins"
+        description="Mantenha seus plugins WordPress sempre atualizados para garantir segurança, desempenho e novos recursos no seu site."
+        client:only
+    />
+
+    <PluginsComponent client:only/>
+
+</Layout>
