@@ -3,8 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import DynamicCodes from "@/components/DynamicCodes";
 export const prerender = false;
 
-const TOP_HEADERS_API_URL =
-  import.meta.env.PUBLIC_TOP_HEADERS_API_URL ?? "http://localhost:3000/api/top-headers";
+const TOP_HEADERS_API_URL = "https://code-shelf-backend.vercel.app//api/top-headers";
 
 let data: { docs: { code: string }[] } = { docs: [] };
 try {
