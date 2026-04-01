@@ -1,7 +1,9 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import DynamicCodes from "@/components/DynamicCodes";
+import TesteComponent from "@/components/Teste";
 export const prerender = false;
+import { Icon } from "@iconify/react";
 
 const TOP_HEADERS_API_URL = "https://code-shelf-backend.vercel.app//api/top-headers";
 
@@ -18,7 +20,6 @@ try {
 
 <Layout>
     <div class="flex flex-col">
-        <h1>Teste</h1>
         {
             data.docs.map((item: { code: string }, index: number) => (
                 <div data-index={index}>
@@ -26,6 +27,6 @@ try {
                 </div>
             ))
         }
-        <!-- <TesteComponent client:only="react" /> -->
+        <TesteComponent client:only="react" />
     </div>
 </Layout>

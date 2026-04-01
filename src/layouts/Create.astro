@@ -4,6 +4,7 @@ import Header from "@/partials/Header";
 import Footer from "@/partials/Footer";
 import Toaster from "@/components/Toaster";
 import GeminiChat from "@/components/GeminiChat";
+import topHeaders from "@/components/topHeaders.astro";
 ---
 
 <!doctype html>
@@ -27,10 +28,8 @@ import GeminiChat from "@/components/GeminiChat";
 		/>
 	</head>
 	<body>
-		<Header client:only />
 		<Toaster client:only />
 		<GeminiChat client:only />
 		<slot />
-		<Footer client:only />
 	</body>
 </html>

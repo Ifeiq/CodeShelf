@@ -1,0 +1,27 @@
+---
+import CreateLayout from "@/layouts/Create.astro";
+export const prerender = false;
+import DynamicCodesSwiper from "@/components/DynamicCodesSwiper";
+
+const TOP_HEADERS_API_URL =
+  "https://code-shelf-backend.vercel.app//api/top-headers";
+
+let data: { docs: { code: string }[] } = { docs: [] };
+try {
+  const response = await fetch(TOP_HEADERS_API_URL);
+  if (response.ok) {
+    data = await response.json();
+  }
+} catch {
+  data = { docs: [] };
+}
+---
+
+<CreateLayout>
+  <div class="">
+    <DynamicCodesSwiper
+      client:only="react"
+      codes={data.docs.map((d) => d.code)}
+    />
+  </div>
+</CreateLayout>

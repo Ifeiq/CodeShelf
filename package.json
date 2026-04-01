@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "kb:generate": "node scripts/generate-kb.mjs",
     "build": "astro build",
+    "prebuild": "npm run kb:generate",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -12,6 +14,7 @@
     "@astrojs/cloudflare": "^12.6.13",
     "@astrojs/react": "^4.4.2",
     "@fontsource-variable/geist": "^5.2.8",
+    "@google/genai": "^1.48.0",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
