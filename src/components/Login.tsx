@@ -1,4 +1,5 @@
 import { useId, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
 
 export default function LoginForm() {
     const [email, setEmail] = useState('')
@@ -29,6 +30,9 @@ export default function LoginForm() {
             })
 
             if (res.ok) {
+                toast.success('Login realizado com sucesso!')
+                await new Promise(r => setTimeout(r, 600))
+                window.location.href = '/teste'
                 return
             }
 
