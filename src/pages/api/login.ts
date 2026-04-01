@@ -3,6 +3,7 @@ import type { APIRoute } from "astro";
 export const prerender = false;
 
 const BACKEND_LOGIN_URL = "https://code-shelf-backend.vercel.app/api/users/login";
+const AUTH_COOKIE_NAME = "cs_auth";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -28,12 +29,18 @@ export const POST: APIRoute = async ({ request }) => {
 
     const upstreamText = await upstreamRes.text();
 
-    // Forward Set-Cookie so the browser stores session cookie for this origin.
-    const resHeaders = new Headers();
-    resHeaders.set("Content-Type", upstreamRes.headers.get("content-type") || "application/json");
+    // Important: don't forward upstream Set-Cookie here.
+    // In dev, combining multiple Set-Cookie values can prevent the browser from saving our auth cookie.
+    const resHeaders = new Headers({
+      "Content-Type": upstreamRes.headers.get("content-type") || "application/json",
+    });
 
-    const setCookie = upstreamRes.headers.get("set-cookie");
-    if (setCookie) resHeaders.set("set-cookie", setCookie);
+    // Local auth gate cookie (so middleware can protect pages even on localhost)
+    if (upstreamRes.ok) {
+      resHeaders.append("Set-Cookie", `${AUTH_COOKIE_NAME}=1; Path=/; HttpOnly; Max-Age=1209600; SameSite=Lax`);
+    } else {
+      resHeaders.append("Set-Cookie", `${AUTH_COOKIE_NAME}=; Path=/; HttpOnly; Max-Age=0; SameSite=Lax`);
+    }
 
     return new Response(upstreamText, {
       status: upstreamRes.status,

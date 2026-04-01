@@ -1,11 +1,13 @@
 import { defineMiddleware } from "astro:middleware";
 
-const BACKEND_ME_URL = "https://code-shelf-backend.vercel.app/api/users/me";
+const AUTH_COOKIE_NAME = "cs_auth";
 
 function isPublicPath(pathname: string) {
   if (pathname === "/login") return true;
   if (pathname === "/api/login" || pathname === "/api/logout") return true;
   if (pathname.startsWith("/api/")) return true;
+  // Astro internal assets
+  if (pathname.startsWith("/_astro/")) return true;
   if (pathname.startsWith("/images/")) return true;
   if (pathname.startsWith("/downloads/")) return true;
   if (pathname.startsWith("/favicon")) return true;
@@ -19,24 +21,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   if (isPublicPath(pathname)) return next();
 
-  const cookie = context.request.headers.get("cookie") ?? "";
-  if (!cookie) {
-    return context.redirect(`/login`);
-  }
+  const isAuthed = context.cookies.get(AUTH_COOKIE_NAME)?.value === "1";
 
-  // Verify session with backend (best-effort). If endpoint doesn't exist, fallback to cookie presence.
-  try {
-    const meRes = await fetch(BACKEND_ME_URL, {
-      method: "GET",
-      headers: { Cookie: cookie },
-    });
-
-    if (!meRes.ok) {
-      return context.redirect(`/login`);
-    }
-  } catch {
-    // If backend is temporarily unreachable, we still block access (safer default).
-    return context.redirect(`/login`);
+  if (!isAuthed) {
+    return context.redirect(`/login?next=${encodeURIComponent(pathname)}`);
   }
 
   return next();

@@ -3,6 +3,7 @@ import type { APIRoute } from "astro";
 export const prerender = false;
 
 const BACKEND_LOGOUT_URL = "https://code-shelf-backend.vercel.app/api/users/logout";
+const AUTH_COOKIE_NAME = "cs_auth";
 
 function buildCookieClears(cookieHeader: string | null) {
   if (!cookieHeader) return [];
@@ -24,6 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
   const clears = buildCookieClears(cookieHeader);
   const resHeaders = new Headers({ "Content-Type": "application/json" });
   for (const c of clears) resHeaders.append("Set-Cookie", c);
+  resHeaders.append("Set-Cookie", `${AUTH_COOKIE_NAME}=; Path=/; HttpOnly; Max-Age=0; SameSite=Lax`);
 
   try {
     // Best-effort: ask backend to invalidate session too.
