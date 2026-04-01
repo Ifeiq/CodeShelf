@@ -21,7 +21,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const cookie = context.request.headers.get("cookie") ?? "";
   if (!cookie) {
-    return context.redirect(`/login?next=${encodeURIComponent(pathname)}`);
+    return context.redirect(`/login`);
   }
 
   // Verify session with backend (best-effort). If endpoint doesn't exist, fallback to cookie presence.
@@ -32,11 +32,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
 
     if (!meRes.ok) {
-      return context.redirect(`/login?next=${encodeURIComponent(pathname)}`);
+      return context.redirect(`/login`);
     }
   } catch {
     // If backend is temporarily unreachable, we still block access (safer default).
-    return context.redirect(`/login?next=${encodeURIComponent(pathname)}`);
+    return context.redirect(`/login`);
   }
 
   return next();
