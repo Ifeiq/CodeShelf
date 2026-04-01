@@ -11,6 +11,7 @@ const ICONIFY_API = "https://api.iconify.design/search";
 const STORAGE_FAVORITES = "icons-favorites";
 const STORAGE_RECENT = "icons-recent";
 const MAX_RECENT = 5;
+const PAGE_SIZE = 25;
 
 function loadFromStorage<T>(key: string, defaultValue: T): T {
 	if (typeof window === "undefined") return defaultValue;
@@ -46,6 +47,12 @@ export default function Icons() {
 		setRecent(loadFromStorage(STORAGE_RECENT, []));
 	}, []);
 
+	const iconPages = (() => {
+		const pages: string[][] = [];
+		for (let i = 0; i < icons.length; i += PAGE_SIZE) pages.push(icons.slice(i, i + PAGE_SIZE));
+		return pages;
+	})();
+
 	const searchIcons = useCallback(async () => {
 		if (!searchTerm.trim()) {
 			toast.error("Digite um termo para buscar", {
@@ -64,7 +71,7 @@ export default function Icons() {
 		setSearched(true);
 		try {
 			const res = await fetch(
-				`${ICONIFY_API}?query=${encodeURIComponent(searchTerm.trim())}&limit=500`
+				`${ICONIFY_API}?query=${encodeURIComponent(searchTerm.trim())}&limit=9999`
 			);
 			const data = await res.json();
 			setIcons(data.icons ?? []);
@@ -221,21 +228,19 @@ export default function Icons() {
 							</button>
 							<Swiper
 								spaceBetween={16}
-								slidesPerView={5}
+								slidesPerView={1}
 								onSwiper={(swiper) => {
 									swiperRef.current = swiper;
 								}}
-								breakpoints={{
-									320: { slidesPerView: 2 },
-									640: { slidesPerView: 3 },
-									768: { slidesPerView: 4 },
-									1024: { slidesPerView: 5 },
-								}}
 								className="flex-1"
 							>
-								{icons.map((iconId) => (
-									<SwiperSlide key={iconId}>
-										<IconCard iconId={iconId} showFavorite className="w-full" />
+								{iconPages.map((page, pageIndex) => (
+									<SwiperSlide key={`page-${pageIndex}`}>
+										<div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3">
+											{page.map((iconId) => (
+												<IconCard key={iconId} iconId={iconId} showFavorite className="w-full" />
+											))}
+										</div>
 									</SwiperSlide>
 								))}
 							</Swiper>
