@@ -49,6 +49,7 @@ export default function Todo() {
     const [inputValue, setInputValue] = useState("");
     const [descriptionValue, setDescriptionValue] = useState("");
     const [subtaskInputs, setSubtaskInputs] = useState<Record<string, string>>({});
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
     useEffect(() => {
         const loaded = loadFromStorage<TodoItem[] | { id: string; text: string; completed: boolean }[]>(STORAGE_TODOS, []);
@@ -89,6 +90,7 @@ export default function Todo() {
         saveTodos([...todos, newTodo]);
         setInputValue("");
         setDescriptionValue("");
+        setIsAddModalOpen(false);
     }, [inputValue, descriptionValue, todos, saveTodos]);
 
     const toggleTodo = useCallback(
@@ -168,36 +170,73 @@ export default function Todo() {
     return (
         <section className="bg-[#0d0d0d] py-16 px-8 md:px-32 flex flex-col gap-12">
             <div className="flex flex-col gap-2">
+                <button
+                    onClick={() => setIsAddModalOpen(true)}
+                    className="self-start flex items-center gap-2 px-8 text-center mb-4 py-2 rounded-lg bg-primary text-black font-semibold hover:opacity-90 transition-opacity"
+                >
+                    <Icon icon="mdi:plus" className="text-lg" />
+                    Adicionar tarefa
+                </button>
                 <h1 className="text-6xl font-bold text-primary">To-do</h1>
                 <p className="text-xl font-bold text-secondary max-w-md">
                     Adicione tarefas e marque como concluídas
                 </p>
             </div>
 
-            <div className="flex flex-col gap-4 max-w-2xl">
-                <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && addTodo()}
-                    placeholder="Nova tarefa..."
-                    className="px-4 py-3 bg-[#1d1e22] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary"
-                />
-                <textarea
-                    value={descriptionValue}
-                    onChange={(e) => setDescriptionValue(e.target.value)}
-                    placeholder="Descrição (opcional)..."
-                    rows={2}
-                    className="px-4 py-3 bg-[#1d1e22] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary resize-none"
-                />
-                <button
-                    onClick={addTodo}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black font-bold rounded-lg hover:bg-cyan-400 transition-colors w-fit"
+            {isAddModalOpen && (
+                <div
+                    className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4"
+                    onClick={() => setIsAddModalOpen(false)}
                 >
-                    <Icon icon="mdi:plus" className="text-xl" />
-                    Adicionar
-                </button>
-            </div>
+                    <div
+                        className="w-full max-w-lg bg-[#1d1e22] border border-gray-700 rounded-xl p-6 space-y-4"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="flex items-start justify-between gap-4">
+                            <h2 className="text-2xl font-bold text-white">Nova tarefa</h2>
+                            <button
+                                onClick={() => setIsAddModalOpen(false)}
+                                className="p-1 rounded text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                                aria-label="Fechar popup"
+                            >
+                                <Icon icon="mdi:close" className="text-xl" />
+                            </button>
+                        </div>
+
+                        <input
+                            type="text"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") addTodo();
+                            }}
+                            placeholder="Título da tarefa"
+                            className="w-full px-3 py-2 text-sm bg-[#131315] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary"
+                        />
+                        <textarea
+                            value={descriptionValue}
+                            onChange={(e) => setDescriptionValue(e.target.value)}
+                            placeholder="Descrição (opcional)"
+                            className="w-full px-3 py-2 text-sm bg-[#131315] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary min-h-28 resize-y"
+                        />
+
+                        <div className="flex justify-end gap-2">
+                            <button
+                                onClick={() => setIsAddModalOpen(false)}
+                                className="px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                onClick={addTodo}
+                                className="px-4 py-2 rounded-lg bg-primary text-black font-semibold hover:opacity-90 transition-opacity"
+                            >
+                                Salvar tarefa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {todos.length > 0 && (
                 <div className="space-y-4 max-w-2xl w-full">

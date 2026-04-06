@@ -2,10 +2,7 @@
 
 import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
-import { useState, useCallback, useRef, useEffect } from "react";
-import type { Swiper as SwiperType } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import { useState, useCallback, useEffect } from "react";
 
 const ICONIFY_API = "https://api.iconify.design/search";
 const STORAGE_FAVORITES = "icons-favorites";
@@ -33,9 +30,9 @@ function saveToStorage(key: string, value: unknown) {
 }
 
 export default function Icons() {
-	const swiperRef = useRef<SwiperType | null>(null);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [icons, setIcons] = useState<string[]>([]);
+	const [visibleCount, setVisibleCount] = useState(20);
 	const [loading, setLoading] = useState(false);
 	const [searched, setSearched] = useState(false);
 	const [favorites, setFavorites] = useState<string[]>([]);
@@ -68,6 +65,7 @@ export default function Icons() {
 			);
 			const data = await res.json();
 			setIcons(data.icons ?? []);
+			setVisibleCount(20);
 		} catch {
 			toast.error("Erro ao buscar ícones", {
 				position: "top-right",
@@ -79,6 +77,7 @@ export default function Icons() {
 				},
 			});
 			setIcons([]);
+			setVisibleCount(20);
 		} finally {
 			setLoading(false);
 		}
@@ -211,41 +210,22 @@ export default function Icons() {
 						{loading ? "Carregando..." : icons.length > 0 ? `Resultados (${icons.length})` : "Nenhum ícone encontrado"}
 					</h3>
 					{!loading && icons.length > 0 && (
-						<div className="relative flex items-center gap-4">
-							<button
-								onClick={() => swiperRef.current?.slidePrev()}
-								aria-label="Anterior"
-								className="flex-shrink-0 w-12 h-12 rounded-full bg-[#1d1e22] border border-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-black hover:border-primary transition-all duration-300"
-							>
-								<Icon icon="mdi:chevron-left" className="text-2xl" />
-							</button>
-							<Swiper
-								spaceBetween={16}
-								slidesPerView={5}
-								onSwiper={(swiper) => {
-									swiperRef.current = swiper;
-								}}
-								breakpoints={{
-									320: { slidesPerView: 2 },
-									640: { slidesPerView: 3 },
-									768: { slidesPerView: 4 },
-									1024: { slidesPerView: 5 },
-								}}
-								className="flex-1"
-							>
-								{icons.map((iconId) => (
-									<SwiperSlide key={iconId}>
-										<IconCard iconId={iconId} showFavorite className="w-full" />
-									</SwiperSlide>
+						<div className="space-y-4">
+							<div className="grid grid-cols-5 gap-4">
+								{icons.slice(0, visibleCount).map((iconId) => (
+									<IconCard key={iconId} iconId={iconId} showFavorite className="w-full" />
 								))}
-							</Swiper>
-							<button
-								onClick={() => swiperRef.current?.slideNext()}
-								aria-label="Próximo"
-								className="flex-shrink-0 w-12 h-12 rounded-full bg-[#1d1e22] border border-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-black hover:border-primary transition-all duration-300"
-							>
-								<Icon icon="mdi:chevron-right" className="text-2xl" />
-							</button>
+							</div>
+							{visibleCount < icons.length && (
+								<div className="flex justify-center">
+									<button
+										onClick={() => setVisibleCount((prev) => Math.min(prev + 10, icons.length))}
+										className="inline-flex items-center gap-2 px-6 py-3 bg-[#1d1e22] border border-gray-700 text-white font-semibold rounded-lg hover:border-primary hover:text-primary transition-colors"
+									>
+										Carregar mais
+									</button>
+								</div>
+							)}
 						</div>
 					)}
 				</div>

@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Hero from '@/components/Hero'
+import AddCollectionComponent from '@/components/AddCollection'
+---
+<Layout>
+    <Hero
+        title="Add Collection"
+        subtitle="Add a new collection"
+        description="Add a new collection to the database"
+        client:only
+    />
+
+    <AddCollectionComponent client:only/>
+</Layout>

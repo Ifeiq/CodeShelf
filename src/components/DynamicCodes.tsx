@@ -4,8 +4,10 @@
 import React, { useMemo } from 'react';
 import { transform } from 'sucrase';
 import { Icon } from '@iconify/react';
+import { useEffect, useRef, useState } from "react";
 
 interface DynamicCodesProps {
+  id: string;
   code: string;
 }
 
@@ -57,7 +59,7 @@ function evaluateDynamicCode(code: string): React.ReactNode {
 	return null;
 }
 
-export default function DynamicCodes({ code }: DynamicCodesProps) {
+export default function DynamicCodes({ id, code }: DynamicCodesProps) {
 	const rendered = useMemo(() => {
 		try {
 			return evaluateDynamicCode(code);
@@ -67,5 +69,5 @@ export default function DynamicCodes({ code }: DynamicCodesProps) {
 		}
 	}, [code]);
 
-	return <>{rendered}</>;
+	return <div id={id}>{rendered}</div>;
 }

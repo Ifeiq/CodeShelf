@@ -2,10 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 import DynamicCodes from "@/components/DynamicCodes";
 export const prerender = false;
+import TesteComponent from "@/components/Teste";
 
-const TOP_HEADERS_API_URL = "https://code-shelf-backend.vercel.app//api/top-headers";
+const TOP_HEADERS_API_URL = "https://code-shelf-backend.vercel.app/api/top-headers";
 
-let data: { docs: { code: string }[] } = { docs: [] };
+let data: { docs: { id: string; code: string }[] } = { docs: [] };
 try {
   const response = await fetch(TOP_HEADERS_API_URL);
   if (response.ok) {
@@ -14,15 +15,16 @@ try {
 } catch {
   data = { docs: [] };
 }
+
+console.log(data);
 ---
 
 <Layout>
     <div class="flex flex-col">
-        <h1>Teste</h1>
         {
-            data.docs.map((item: { code: string }, index: number) => (
+            data.docs.map((item: { id: string; code: string }, index: number) => (
                 <div data-index={index}>
-                    <DynamicCodes code={item.code} client:only="react" />
+                    <DynamicCodes id={item.id} code={item.code} client:only="react" />
                 </div>
             ))
         }

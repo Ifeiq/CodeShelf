@@ -19,7 +19,11 @@ export default function DNS() {
         setLoading(true);
         setResults(null);
         const domainInput = document.getElementById("domain") as HTMLInputElement;
-        const domainValue = domainInput.value;
+        const domainValue = domainInput.value
+            .trim()
+            .replace(/^https?:\/\//i, "")
+            .replace(/\/+$/, "");
+        domainInput.value = domainValue;
 
         const url = `https://dns.google/resolve?name=${domainValue}&type=${dnsType}`;
         fetch(url)

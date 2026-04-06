@@ -23,11 +23,8 @@ export default function Footer() {
 					{/* Brand */}
 					<div className="lg:col-span-1">
 						<a href="/" className="flex flex-row items-center gap-2 hover:opacity-90 transition-opacity">
-							<img src="/images/Logo.png" alt="" className="w-10" />
-							<div className="flex flex-col">
-								<span className="text-xl font-bold text-primary">Code</span>
-								<span className="text-xl font-bold text-secondary">Shelf</span>
-							</div>
+							<img src="/images/Logo.png" alt="" className="w-4 md:w-1/2" />
+							
 						</a>
 						<p className="mt-4 text-gray-500 text-sm leading-relaxed max-w-xs">
 							Plataforma de código aberto para desenvolvimento de aplicativos e sites. Componentes, features e plugins prontos para usar.
