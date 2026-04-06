@@ -1,0 +1,16 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero';
+import LoginComponent from '@/components/Login';
+---
+
+<Layout>
+    <Hero
+        title="Login"
+        subtitle="Faça login para continuar"
+        description="Faça login para continuar"
+        client:only
+    />
+
+    <LoginComponent client:only/>
+</Layout>

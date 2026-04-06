@@ -16,6 +16,13 @@ body {
 	user-select: none;
 }
 
+/* Allow copy/paste inside the Gemini chat widget */
+.select-text,
+.select-text * {
+	user-select: text !important;
+	-webkit-user-select: text !important;
+}
+
 ::-webkit-scrollbar {
 	width: 12px;
 }

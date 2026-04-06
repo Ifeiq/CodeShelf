@@ -8,6 +8,7 @@ const ICONIFY_API = "https://api.iconify.design/search";
 const STORAGE_FAVORITES = "icons-favorites";
 const STORAGE_RECENT = "icons-recent";
 const MAX_RECENT = 5;
+const PAGE_SIZE = 25;
 
 function loadFromStorage<T>(key: string, defaultValue: T): T {
 	if (typeof window === "undefined") return defaultValue;
@@ -43,6 +44,12 @@ export default function Icons() {
 		setRecent(loadFromStorage(STORAGE_RECENT, []));
 	}, []);
 
+	const iconPages = (() => {
+		const pages: string[][] = [];
+		for (let i = 0; i < icons.length; i += PAGE_SIZE) pages.push(icons.slice(i, i + PAGE_SIZE));
+		return pages;
+	})();
+
 	const searchIcons = useCallback(async () => {
 		if (!searchTerm.trim()) {
 			toast.error("Digite um termo para buscar", {
@@ -61,7 +68,7 @@ export default function Icons() {
 		setSearched(true);
 		try {
 			const res = await fetch(
-				`${ICONIFY_API}?query=${encodeURIComponent(searchTerm.trim())}&limit=500`
+				`${ICONIFY_API}?query=${encodeURIComponent(searchTerm.trim())}&limit=9999`
 			);
 			const data = await res.json();
 			setIcons(data.icons ?? []);
@@ -210,10 +217,37 @@ export default function Icons() {
 						{loading ? "Carregando..." : icons.length > 0 ? `Resultados (${icons.length})` : "Nenhum ícone encontrado"}
 					</h3>
 					{!loading && icons.length > 0 && (
+<<<<<<< HEAD
 						<div className="space-y-4">
 							<div className="grid grid-cols-5 gap-4">
 								{icons.slice(0, visibleCount).map((iconId) => (
 									<IconCard key={iconId} iconId={iconId} showFavorite className="w-full" />
+=======
+						<div className="relative flex items-center gap-4">
+							<button
+								onClick={() => swiperRef.current?.slidePrev()}
+								aria-label="Anterior"
+								className="flex-shrink-0 w-12 h-12 rounded-full bg-[#1d1e22] border border-gray-700 flex items-center justify-center text-primary hover:bg-primary hover:text-black hover:border-primary transition-all duration-300"
+							>
+								<Icon icon="mdi:chevron-left" className="text-2xl" />
+							</button>
+							<Swiper
+								spaceBetween={16}
+								slidesPerView={1}
+								onSwiper={(swiper) => {
+									swiperRef.current = swiper;
+								}}
+								className="flex-1"
+							>
+								{iconPages.map((page, pageIndex) => (
+									<SwiperSlide key={`page-${pageIndex}`}>
+										<div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3">
+											{page.map((iconId) => (
+												<IconCard key={iconId} iconId={iconId} showFavorite className="w-full" />
+											))}
+										</div>
+									</SwiperSlide>
+>>>>>>> a96f5f0b425717fe8d3f00be370110280c4b2d3c
 								))}
 							</div>
 							{visibleCount < icons.length && (
